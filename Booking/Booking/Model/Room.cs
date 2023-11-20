@@ -14,5 +14,14 @@ namespace Booking.Model
         public string CostPerNight { get; set; }
         public string Availability { get; set; }
         public List<string> PhotoLinks { get; set; }
+
+        public Room(int id, string number, string type, string costPerNight, string availability)
+        {
+            Id = id;
+            Number = number;
+            Type = type;
+            CostPerNight = costPerNight;
+            Availability = availability;
+        }
     }
 }

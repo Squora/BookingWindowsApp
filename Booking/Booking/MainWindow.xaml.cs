@@ -30,6 +30,7 @@ namespace Booking
         public ObservableCollection<Hotel> Hotels { get; set; }
         public static string ConnectionString = "SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;";
         public static MySqlConnection Connection = new MySqlConnection(ConnectionString);
+        private List<Hotel> allHotels;
 
         public MainWindow()
         {
@@ -62,18 +63,50 @@ namespace Booking
 
         private void HotelListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (hotelListBox.SelectedItem != null && hotelListBox.SelectedItem is Hotel selectedHotel)
-            {
-                HotelInfo hotelInfo = new HotelInfo(selectedHotel);
-                hotelInfo.Show();
+            Hotel selectedHotel = (Hotel)hotelListBox.SelectedItem;
 
-                hotelListBox.SelectedItem = null;
+            if (selectedHotel != null)
+            {
+                searchPanel.Visibility = Visibility.Collapsed;
+                hotelListBox.Visibility = Visibility.Collapsed;
+
+                backButton.Visibility = Visibility.Visible;
+                hotelDetailsPanel.Visibility = Visibility.Visible;
+
+                hotelDetailsPanel.DataContext = selectedHotel;
+            }
+            else
+            {
+                searchPanel.Visibility = Visibility.Visible;
+                hotelListBox.Visibility = Visibility.Visible;
+
+                backButton.Visibility = Visibility.Collapsed;
+                hotelDetailsPanel.Visibility = Visibility.Collapsed;
             }
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            string searchText = tbSearch.Text.ToLower();
 
+            if (allHotels == null)
+            {
+                allHotels = ((IEnumerable<Hotel>)hotelListBox.ItemsSource).ToList();
+            }
+
+            var filteredHotels = allHotels
+                .Where(hotel => hotel.Name.ToLower().StartsWith(searchText))
+                .OrderBy(hotel => hotel.Name)
+                .ToList();
+
+            hotelListBox.ItemsSource = filteredHotels;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            hotelListBox.SelectedItem = null;
+
+            HotelListBox_SelectionChanged(hotelListBox, null);
         }
     }
 }

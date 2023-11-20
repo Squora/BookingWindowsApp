@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="Booking" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="450" MaxWidth="800" ResizeMode="NoResize">
     <Grid>
-        <StackPanel Margin="10">
+        <StackPanel x:Name="searchPanel" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Style="{StaticResource placeHolder}" Tag="Введите название отеля..." Width="250" Height="25"/>
+                <TextBox Grid.Column="0" x:Name="tbSearch" Style="{StaticResource placeHolder}" Tag="Введите название отеля..." Width="250" Height="25"/>
                 <Button Grid.Column="1" Content="Search" HorizontalAlignment="Center" Margin="10, 0, 0, 0" Click="SearchButton_Click"/>
             </Grid>
         </StackPanel>
@@ -43,5 +43,13 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <StackPanel x:Name="hotelDetailsPanel" Visibility="Collapsed" Margin="10">
+            <Button x:Name="backButton" Content="Back" Click="BackButton_Click" Visibility="Collapsed" HorizontalAlignment="Left" Width="100" Height="50"/>
+            <TextBlock Text="{Binding SelectedItem.Name, ElementName=hotelListBox}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedItem.Address, ElementName=hotelListBox}"/>
+            <TextBlock Text="{Binding SelectedItem.NumberStars, StringFormat='Number of Stars: {0}', ElementName=hotelListBox}"/>
+            <TextBlock Text="{Binding SelectedItem.Description, ElementName=hotelListBox}"/>
+        </StackPanel>
     </Grid>
 </Window>
