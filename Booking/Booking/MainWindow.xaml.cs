@@ -27,10 +27,9 @@ namespace Booking
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<Hotel> Hotels { get; set; }
         public static string ConnectionString = "SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;";
         public static MySqlConnection Connection = new MySqlConnection(ConnectionString);
-        private List<Hotel> allHotels;
+        private List<Hotel> _allHotels = new List<Hotel>();
 
         public MainWindow()
         {
@@ -58,7 +57,7 @@ namespace Booking
             }
 
             DataContext = this;
-            Hotels = new ObservableCollection<Hotel>(hotelList);
+            _allHotels = hotelList;
         }
 
         private void HotelListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,28 +84,19 @@ namespace Booking
             }
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            string searchText = tbSearch.Text.ToLower();
-
-            if (allHotels == null)
-            {
-                allHotels = ((IEnumerable<Hotel>)hotelListBox.ItemsSource).ToList();
-            }
-
-            var filteredHotels = allHotels
-                .Where(hotel => hotel.Name.ToLower().StartsWith(searchText))
-                .OrderBy(hotel => hotel.Name)
-                .ToList();
-
-            hotelListBox.ItemsSource = filteredHotels;
-        }
-
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             hotelListBox.SelectedItem = null;
 
             HotelListBox_SelectionChanged(hotelListBox, null);
+        }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = tbSearch.Text.ToLower(); 
+            List<Hotel> filteredHotels = _allHotels.Where(h => h.Name.ToLower().Contains(searchText) || h.Address.ToLower().Contains(searchText)).ToList();
+
+            hotelListBox.ItemsSource = filteredHotels;
         }
     }
 }
