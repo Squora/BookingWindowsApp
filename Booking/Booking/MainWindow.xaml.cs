@@ -22,14 +22,11 @@ using Booking.ViewModel;
 
 namespace Booking
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public static string ConnectionString = "SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;";
         public static MySqlConnection Connection = new MySqlConnection(ConnectionString);
-        private List<Hotel> _allHotels = new List<Hotel>();
+        private List<Hotel> _hotels = new List<Hotel>();
 
         public MainWindow()
         {
@@ -57,44 +54,29 @@ namespace Booking
             }
 
             DataContext = this;
-            _allHotels = hotelList;
+            _hotels = hotelList;
         }
 
         private void HotelListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Hotel selectedHotel = (Hotel)hotelListBox.SelectedItem;
 
-            if (selectedHotel != null)
-            {
-                searchPanel.Visibility = Visibility.Collapsed;
-                hotelListBox.Visibility = Visibility.Collapsed;
-
-                backButton.Visibility = Visibility.Visible;
-                hotelDetailsPanel.Visibility = Visibility.Visible;
-
-                hotelDetailsPanel.DataContext = selectedHotel;
-            }
-            else
-            {
-                searchPanel.Visibility = Visibility.Visible;
-                hotelListBox.Visibility = Visibility.Visible;
-
-                backButton.Visibility = Visibility.Collapsed;
-                hotelDetailsPanel.Visibility = Visibility.Collapsed;
-            }
+            searchPanel.Visibility = Visibility.Collapsed;
+            hotelListBox.Visibility = Visibility.Collapsed;
+            mainFrame.Content = new HotelDetalisPage(selectedHotel);
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            hotelListBox.SelectedItem = null;
+        //private void BackButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    hotelListBox.SelectedItem = null;
 
-            HotelListBox_SelectionChanged(hotelListBox, null);
-        }
+        //    HotelListBox_SelectionChanged(hotelListBox, null);
+        //}
 
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = tbSearch.Text.ToLower(); 
-            List<Hotel> filteredHotels = _allHotels.Where(h => h.Name.ToLower().Contains(searchText) || h.Address.ToLower().Contains(searchText)).ToList();
+            List<Hotel> filteredHotels = _hotels.Where(h => h.Name.ToLower().Contains(searchText) || h.Address.ToLower().Contains(searchText)).ToList();
 
             hotelListBox.ItemsSource = filteredHotels;
         }

@@ -20,17 +20,15 @@
                      Margin="0, 50, 0, 0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5" Width="700">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!--Левая часть с изображением или чем-то еще-->
                             <Image Source="{Binding PhotoLinks[0]}" Width="100" Height="100" Margin="5" />
 
-                            <!--Правая часть с информацией о отеле-->
                             <StackPanel Grid.Column="1" Margin="5">
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"/>
                                 <TextBlock Text="{Binding Address}" Foreground="DarkGray"/>
@@ -43,12 +41,13 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel x:Name="hotelDetailsPanel" Visibility="Collapsed" Margin="10">
+        <!--<StackPanel x:Name="hotelDetailsPanel" Visibility="Collapsed" Margin="10">
             <Button x:Name="backButton" Content="Back" Click="BackButton_Click" Visibility="Collapsed" HorizontalAlignment="Left" Width="100" Height="50"/>
             <TextBlock Text="{Binding SelectedItem.Name, ElementName=hotelListBox}" FontWeight="Bold"/>
             <TextBlock Text="{Binding SelectedItem.Address, ElementName=hotelListBox}"/>
             <TextBlock Text="{Binding SelectedItem.NumberStars, StringFormat='Number of Stars: {0}', ElementName=hotelListBox}"/>
             <TextBlock Text="{Binding SelectedItem.Description, ElementName=hotelListBox}"/>
-        </StackPanel>
+        </StackPanel>-->
+        <Frame x:Name="mainFrame" Width="800" Height="430"></Frame>
     </Grid>
 </Window>

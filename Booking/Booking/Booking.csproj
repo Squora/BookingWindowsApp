@@ -107,7 +107,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HotelDetalisPage.xaml.cs">
+      <DependentUpon>HotelDetalisPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Review.cs" />
     <Compile Include="ViewModel\HotelInfo.cs" />
+    <Page Include="HotelDetalisPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
