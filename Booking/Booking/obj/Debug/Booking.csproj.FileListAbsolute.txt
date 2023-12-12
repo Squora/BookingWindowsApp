@@ -144,3 +144,7 @@ D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\Booking.exe
 D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\Booking.pdb
 D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\HotelDetalisPage.g.cs
 D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\HotelDetalisPage.baml
+D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\RoomDetailsPage.g.cs
+D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\RoomDetailsPage.baml
+D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\BookingPage.g.cs
+D:\GitHub Projects\BookingWindowsApp\Booking\Booking\obj\Debug\BookingPage.baml

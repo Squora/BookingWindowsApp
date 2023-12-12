@@ -10,10 +10,11 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Margin="10" Grid.Row="0">
+        <StackPanel x:Name="hotelDetails" Margin="10" Grid.Row="0">
             <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
             <TextBlock Text="{Binding Address}" Foreground="DarkGray" Margin="0,0,0,10"/>
             <TextBlock Text="{Binding NumberStars, StringFormat='Number of Stars: {0}'}" Foreground="DarkGreen" Margin="0,0,0,10"/>
@@ -43,5 +44,23 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <ListBox x:Name="reviewListBox" Grid.Row="3" ItemsSource="{Binding Reviews}" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5" Width="700">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding Author}" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding Grade}" Foreground="DarkGray"/>
+                            <TextBlock Text="{Binding Date}" Foreground="DarkGreen"/>
+                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Frame x:Name="mainFrame"></Frame>
     </Grid>
 </Page>

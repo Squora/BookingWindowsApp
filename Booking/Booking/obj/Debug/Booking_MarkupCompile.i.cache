@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\GitHub Projects\BookingWindowsApp\Booking\Booking\App.xaml
-2799585134
+4-784680682
 
-11-2124501484
+13-557956316
 33-1408126663
-HotelDetalisPage.xaml;MainWindow.xaml;
+BookingPage.xaml;HotelDetalisPage.xaml;MainWindow.xaml;RoomDetailsPage.xaml;
 
-False
+True
 

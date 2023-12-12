@@ -18,7 +18,6 @@ using MySql.Data.MySqlClient;
 using Booking.Model;
 using ZstdSharp.Unsafe;
 using System.Collections.ObjectModel;
-using Booking.ViewModel;
 
 namespace Booking
 {
@@ -65,13 +64,6 @@ namespace Booking
             hotelListBox.Visibility = Visibility.Collapsed;
             mainFrame.Content = new HotelDetalisPage(selectedHotel);
         }
-
-        //private void BackButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    hotelListBox.SelectedItem = null;
-
-        //    HotelListBox_SelectionChanged(hotelListBox, null);
-        //}
 
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {

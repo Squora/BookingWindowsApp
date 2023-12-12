@@ -107,11 +107,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BookingPage.xaml.cs">
+      <DependentUpon>BookingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HotelDetalisPage.xaml.cs">
       <DependentUpon>HotelDetalisPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Review.cs" />
-    <Compile Include="ViewModel\HotelInfo.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="RoomDetailsPage.xaml.cs">
+      <DependentUpon>RoomDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="BookingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HotelDetalisPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +138,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RoomDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Hotel.cs" />
@@ -158,6 +172,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
