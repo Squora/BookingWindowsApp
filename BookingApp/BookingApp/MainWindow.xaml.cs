@@ -72,5 +72,13 @@ namespace BookingApp
 
             hotelListBox.ItemsSource = filteredHotels;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            searchPanel.Visibility = Visibility.Collapsed;
+            hotelListBox.Visibility = Visibility.Collapsed;
+
+            mainFrame.Content = new RegistrationPage();
+        }
     }
 }

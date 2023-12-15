@@ -53,7 +53,7 @@ namespace BookingApp {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BookingApp;V1.0.0.0;component/bookingpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BookingApp;component/bookingpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\BookingPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

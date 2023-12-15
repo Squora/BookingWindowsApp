@@ -1,0 +1,42 @@
+﻿<Page x:Class="BookingApp.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0">
+            <TextBlock Text="Вход" FontSize="24" FontWeight="Bold" Margin="10"/>
+            <Label Content="Логин (почта или телефон):" Margin="10"/>
+            <TextBox x:Name="LoginTextBox" Margin="10"/>
+            <Label Content="Пароль:" Margin="10"/>
+            <PasswordBox x:Name="PasswordBox" Margin="10"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Войти" Grid.Row="0" Grid.ColumnSpan="2" Click="BtnLogin_Click"/>
+                <Button Content="Восстановить" Grid.Row="1" Grid.Column="0" Click="BtnForgotPassword_Click" BorderThickness="0" Background="Transparent"/>
+                <Button Content="Зарегистрироваться" Grid.Row="1" Grid.Column="1" Click="BtnRegister_Click" BorderThickness="0" Background="Transparent"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

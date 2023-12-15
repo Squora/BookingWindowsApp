@@ -23,37 +23,40 @@ namespace BookingApp
 
         private void BtnBook_Click(object sender, RoutedEventArgs e)
         {
-            using (var connection = new MySqlConnection("SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;"))
+            if (startDatePicker.SelectedDate != null)
             {
-                try
+                using (var connection = new MySqlConnection("SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;"))
                 {
-                    connection.Open();
-
-                    string insertBookingQuery = "INSERT INTO booking (client_id, room_id, start_stay_date, end_stay_date, status)" +
-                        " VALUES (@ClientId, @RoomId, @StartStayDate, @EndStayDate, @Status);";
-
-                    using (var cmd = new MySqlCommand(insertBookingQuery, connection))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@ClientId", 1);
-                        cmd.Parameters.AddWithValue("@RoomId", _selectedRoom.Id);
-                        cmd.Parameters.AddWithValue("@StartStayDate", startDatePicker.SelectedDate);
-                        cmd.Parameters.AddWithValue("@EndStayDate", endDatePicker.SelectedDate);
-                        cmd.Parameters.AddWithValue("@Status", _awaitingConfirmationStatus);
-                        cmd.ExecuteNonQuery();
+                        connection.Open();
+
+                        string insertBookingQuery = "INSERT INTO booking (client_id, room_id, start_stay_date, end_stay_date, status)" +
+                            " VALUES (@ClientId, @RoomId, @StartStayDate, @EndStayDate, @Status);";
+
+                        using (var cmd = new MySqlCommand(insertBookingQuery, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@ClientId", 1);
+                            cmd.Parameters.AddWithValue("@RoomId", _selectedRoom.Id);
+                            cmd.Parameters.AddWithValue("@StartStayDate", startDatePicker.SelectedDate);
+                            cmd.Parameters.AddWithValue("@EndStayDate", endDatePicker.SelectedDate);
+                            cmd.Parameters.AddWithValue("@Status", _awaitingConfirmationStatus);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show("Комната успешно забронирована!");
+
+                        connection.Close();
                     }
-
-                    MessageBox.Show("Комната успешно забронирована!");
-
-                    connection.Close();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при бронировании комнаты: {ex.Message}");
+                    }
                 }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show($"MySQL ошибка: {ex.Message}\nКод ошибки: {ex.Number}");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при бронировании комнаты: {ex.Message}");
-                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите даты пребывания");
             }
         }
     }

@@ -93,7 +93,7 @@ namespace BookingApp {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BookingApp;V1.0.0.0;component/roomdetailspage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BookingApp;component/roomdetailspage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\RoomDetailsPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
