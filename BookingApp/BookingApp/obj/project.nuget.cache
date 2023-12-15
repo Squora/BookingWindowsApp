@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/LH4mjzQ1FW18cAcrgk6ug3lc1NdivJF97rIa5Db8XqF2/aBnrjZqUdY1bXgJ3z7ABg/1EuxJvEovXM04yeSZw==",
+  "dgSpecHash": "FOloiqEIVbNQrFi5QaJK8WenyPASxcFtMKaxPYwEyD3BvLPGaV7tng0BJdM+1Of0ej3itEGcFPXoT0DlrP6NOg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nikita\\source\\repos\\BookingApp\\BookingApp\\BookingApp.csproj",
+  "projectFilePath": "D:\\GitHub Projects\\BookingWindowsApp\\BookingApp\\BookingApp\\BookingApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nikita\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Nikita\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
