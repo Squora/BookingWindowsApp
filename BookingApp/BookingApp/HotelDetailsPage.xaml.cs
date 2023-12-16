@@ -38,7 +38,7 @@ namespace BookingApp
             roomListBox.ItemsSource = _rooms;
 
             LoadReviewsForHotel(_selectedHotel.Id);
-            reviewListBox.ItemsSource = _reviews;
+            LbReviews.ItemsSource = _reviews;
         }
 
         public void LoadRoomsForHotel(int hotelId)

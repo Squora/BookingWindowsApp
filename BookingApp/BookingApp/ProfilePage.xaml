@@ -52,5 +52,23 @@
                 <TextBlock x:Name="tbPassportDetails" Grid.Row="5" Margin="135, 0, 0, 0"/>
             </Grid>
         </StackPanel>
+
+        <TextBlock Grid.Row="14" Grid.Column="0" Text="Ваши брони:" FontSize="24" FontWeight="Bold" Margin="10, 10, 600, 10"/>
+        <ListBox x:Name="LbBookings" Grid.Row="15" ItemsSource="{Binding Bookings}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False"
+          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" Width="770">
+                        <StackPanel Grid.Column="1" Margin="5">
+                            <TextBlock Text="{Binding HotelName}" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding RoomNumber}" FontWeight="SemiBold" FontSize="14"/>
+                            <TextBlock Text="{Binding StartStayDate}" Foreground="DarkGray"/>
+                            <TextBlock Text="{Binding EndStayDate}" Foreground="DarkGreen"/>
+                            <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

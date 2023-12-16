@@ -40,11 +40,11 @@ namespace BookingApp
             DataTable dt = DataBaseManager.ExecuteQuery("SELECT * FROM hotel");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                int id = Convert.ToInt32(dt.Rows[i]["Id"]);
-                string name = dt.Rows[i]["Name"].ToString();
-                string address = dt.Rows[i]["Address"].ToString();
+                int id = Convert.ToInt32(dt.Rows[i]["id"]);
+                string name = dt.Rows[i]["name"].ToString();
+                string address = dt.Rows[i]["address"].ToString();
                 int rating = Convert.ToInt32(dt.Rows[i]["rating"]);
-                string description = dt.Rows[i]["Description"].ToString();
+                string description = dt.Rows[i]["description"].ToString();
 
                 Hotel hotel = new Hotel(id, name, address, rating, description);
 

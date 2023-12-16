@@ -55,7 +55,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox x:Name="reviewListBox" Grid.Row="2" ItemsSource="{Binding Reviews}" BorderThickness="0"
+        <ListBox x:Name="LbReviews" Grid.Row="2" ItemsSource="{Binding Reviews}" BorderThickness="0"
                  ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False"
                  HorizontalAlignment="Left">
             <ListBox.ItemTemplate>
