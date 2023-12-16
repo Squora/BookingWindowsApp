@@ -5,18 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.Model
-{ 
+{
     public class Booking
     {
         public int Id { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
 
-        public Booking(int id, DateOnly startDate, DateOnly endDate) 
+        public Booking()
         {
-            Id = id;
-            StartDate = startDate;
-            EndDate = endDate;
+
         }
     }
 }

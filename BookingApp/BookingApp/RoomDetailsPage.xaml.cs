@@ -27,9 +27,9 @@ namespace BookingApp
         {
             if (IsDatesCorrect())
             {
-                string insertQuery = "INSERT INTO booking (client_id, room_id, start_stay_date, end_stay_date, status)" +
-                            $" VALUES (@ClientId, @RoomId, @StartStayDate, @EndStayDate, @Status);";
-                MySqlParameter mspUser = new MySqlParameter("@ClientId", _user.Id);
+                string insertQuery = "INSERT INTO booking (user_id, room_id, start_stay_date, end_stay_date, status)" +
+                            $" VALUES (@UserId, @RoomId, @StartStayDate, @EndStayDate, @Status);";
+                MySqlParameter mspUser = new MySqlParameter("@UserId", _user.Id);
                 MySqlParameter mspRoom = new MySqlParameter("@RoomId", _selectedRoom.Id);
                 MySqlParameter mspStartDate = new MySqlParameter("@StartStayDate", startDatePicker.SelectedDate);
                 MySqlParameter mspEndDate = new MySqlParameter("@EndStayDate", endDatePicker.SelectedDate);

@@ -62,7 +62,7 @@
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" Width="770">
                         <StackPanel Margin="5">
-                            <TextBlock Text="{Binding Author}" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding FullName}" FontWeight="Bold" FontSize="16"/>
                             <TextBlock Text="{Binding Grade}" Foreground="DarkGray"/>
                             <TextBlock Text="{Binding Date}" Foreground="DarkGreen"/>
                             <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="Gray"/>

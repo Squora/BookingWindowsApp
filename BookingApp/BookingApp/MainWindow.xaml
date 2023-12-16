@@ -52,7 +52,7 @@
                             <StackPanel Grid.Column="1" Margin="5">
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"/>
                                 <TextBlock Text="{Binding Address}" Foreground="DarkGray"/>
-                                <TextBlock Text="{Binding NumberStars, StringFormat='Number of Stars: {0}'}" Foreground="DarkGreen"/>
+                                <TextBlock Text="{Binding Rating, StringFormat='Rating: {0}'}" Foreground="DarkGreen"/>
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Foreground="Gray"/>
                             </StackPanel>
                         </Grid>

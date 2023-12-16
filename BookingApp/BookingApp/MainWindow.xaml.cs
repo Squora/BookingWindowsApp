@@ -43,10 +43,10 @@ namespace BookingApp
                 int id = Convert.ToInt32(dt.Rows[i]["Id"]);
                 string name = dt.Rows[i]["Name"].ToString();
                 string address = dt.Rows[i]["Address"].ToString();
-                int numberStars = Convert.ToInt32(dt.Rows[i]["Star_count"]);
+                int rating = Convert.ToInt32(dt.Rows[i]["rating"]);
                 string description = dt.Rows[i]["Description"].ToString();
 
-                Hotel hotel = new Hotel(id, name, address, numberStars, description);
+                Hotel hotel = new Hotel(id, name, address, rating, description);
 
                 _hotels.Add(hotel);
             }

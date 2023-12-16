@@ -29,10 +29,5 @@ namespace BookingApp.Model
             PassportDetails = passportDetails;
             Password = password;
         }
-
-        public void Rename(string newName)
-        {
-
-        }
     }
 }

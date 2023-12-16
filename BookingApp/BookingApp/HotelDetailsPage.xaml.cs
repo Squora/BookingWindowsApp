@@ -79,21 +79,32 @@ namespace BookingApp
 
         public void LoadReviewsForHotel(int hotelId)
         {
-            string query = "SELECT r.id, r.text, r.grade, r.date, r.author, r.photo_link " +
-                           "FROM review r " +
-                           "JOIN review_to_hotel rh ON r.id = rh.review_id " +
-                           "WHERE rh.hotel_id = @HotelId";
+            string query = "SELECT " +
+                "review.id," +
+                "review.text, " +
+                "review.grade, " +
+                "review.date, " +
+                "CONCAT(user.first_name, ' ', user.last_name, ' ', user.middle_name) AS full_name, " +
+                "review.photo_link " +
+                "FROM " +
+                "review " +
+                "JOIN " +
+                "review_to_hotel ON review.id = review_to_hotel.review_id " +
+                "JOIN " +
+                "user ON review.user_id = user.id " +
+                "WHERE " +
+                "review_to_hotel.hotel_id = @hotelId;";
             MySqlParameter mspHotel = new MySqlParameter("@HotelId", hotelId);
             DataTable dt = DataBaseManager.ExecuteQuery(query, mspHotel);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 int id = Convert.ToInt32(dt.Rows[i]["id"]);
+                string fullName = dt.Rows[i]["full_name"].ToString();
                 string text = dt.Rows[i]["text"].ToString();
                 int grade = Convert.ToInt32(dt.Rows[i]["grade"]);
                 DateTime date = (DateTime)dt.Rows[i]["date"];
-                string author = dt.Rows[i]["author"].ToString();
 
-                Review review = new Review(id, text, grade, date, author);
+                Review review = new Review(id, fullName, text, grade, date);
 
                 _reviews.Add(review);
             }

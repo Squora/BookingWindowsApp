@@ -9,19 +9,18 @@ namespace BookingApp.Model
     public class Review
     {
         public int Id { get; set; }
+        public string FullName { get; set; }
         public string Text { get; set; }
         public int Grade { get; set; }
         public DateTime Date { get; set; }
-        public string Author { get; set; }
-        public List<string> PhotoLinks { get; set; }
 
-        public Review(int id, string text, int grade, DateTime date, string author) 
+        public Review(int id, string fullName, string text, int grade, DateTime date) 
         { 
             Id = id;
+            FullName = fullName;
             Text = text;
             Grade = grade;
             Date = date;
-            Author = author;
         }
     }
 }

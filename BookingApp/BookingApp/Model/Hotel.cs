@@ -12,16 +12,16 @@ namespace BookingApp.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public int NumberStars { get; set; }
+        public int Rating { get; set; }
         public string Description { get; set; }
         public List<string> PhotoLinks { get; set; }
 
-        public Hotel(int id, string name, string address, int numberStars, string description)
+        public Hotel(int id, string name, string address, int rating, string description)
         {
             Id = id;
             Name = name;
             Address = address;
-            NumberStars = numberStars;
+            Rating = rating;
             Description = description;
         }
     }
