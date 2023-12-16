@@ -7,17 +7,35 @@
         mc:Ignorable="d"
         Title="Booking" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="450" MaxWidth="800" ResizeMode="NoResize">
     <Grid>
-        <StackPanel x:Name="searchPanel" Margin="10">
+        <StackPanel x:Name="SearchPanel" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="tbSearch" Style="{StaticResource placeHolder}" Tag="Введите название отеля..." Width="250" Height="25" TextChanged="TbSearch_TextChanged"/>
-                <Button Content="Профиль" Click="Button_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="450, 0, 0, 0"/>
+                <TextBox Grid.Column="0" x:Name="TbSearch" Style="{StaticResource placeHolder}" Tag="Введите название отеля..." Width="250" Height="25" TextChanged="TbSearch_TextChanged"/>
+
+                <StackPanel Grid.Column="1" Margin="470, 0, 0, 0">
+                    <ToggleButton x:Name="BtnUserMenu" Width="25" Height="25" HorizontalAlignment="Right" Click="BtnUserMenu_Click">
+                        <Image Width="40" Height="40" />
+                    </ToggleButton>
+
+                    <Popup x:Name="PopupUserMenu" PlacementTarget="{Binding ElementName=btnUserMenu}" Placement="Bottom" StaysOpen="False">
+                        <Grid Background="White" Width="150">
+                            <StackPanel>
+                                <Button x:Name="BtnLogin" Content="Войти" Click="BtnLogin_Click"/>
+                                <Button x:Name="BtnRegister" Content="Зарегистрироваться" Click="BtnRegister_Click"/>
+                                
+                                <Button x:Name="BtnProfile" Content="Профиль" Click="BtnProfile_Click"/>
+                                <Button x:Name="BtnSettings" Content="Настройки" Click="BtnSettings_Click"/>
+                                <Button x:Name="BtnLogout" Content="Выйти" Click="BtnLogout_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Popup>
+                </StackPanel>
             </Grid>
         </StackPanel>
-        <ListBox x:Name="hotelListBox" ItemsSource="{Binding Hotels}" SelectionChanged="HotelListBox_SelectionChanged"
+        <ListBox x:Name="HotelListBox" ItemsSource="{Binding Hotels}" SelectionChanged="HotelListBox_SelectionChanged"
                  Margin="0, 50, 0, 0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False"
                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
@@ -42,6 +60,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Frame x:Name="mainFrame" Width="800" Height="430"></Frame>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

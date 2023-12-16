@@ -60,9 +60,9 @@ namespace BookingApp
                                     User user = new User(id, firstName, lastName, middleName, passportDetails, phoneNumber, email, userPassword);
                                     UserManager.SetCurrentUser(user);
 
-                                    spEnter.Visibility = Visibility.Collapsed;
-                                    spButtons.Visibility = Visibility.Collapsed;
-                                    mainFrame.Content = new ProfilePage();
+                                    MainWindow mainWindow = new MainWindow();
+                                    mainWindow.Show();
+                                    Window.GetWindow(this)?.Close();
                                 }
                             }
                             else
@@ -81,7 +81,10 @@ namespace BookingApp
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
+            spEnter.Visibility = Visibility.Collapsed;
+            spButtons.Visibility = Visibility.Collapsed;
 
+            mainFrame.Content = new RegistrationPage();
         }
 
         private void BtnForgotPassword_Click(object sender, RoutedEventArgs e)

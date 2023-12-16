@@ -67,14 +67,12 @@ D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\bin\Debug\net6.0-wind
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\bin\Debug\net6.0-windows\runtimes\win-x64\native\krbcc64.dll
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\bin\Debug\net6.0-windows\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\BookingApp.csproj.AssemblyReference.cache
-D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\HotelDetalisPage.g.cs
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\MainWindow.g.cs
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\RoomDetailsPage.g.cs
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\App.g.cs
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\BookingApp_MarkupCompile.cache
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\BookingApp_MarkupCompile.lref
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\App.baml
-D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\HotelDetalisPage.baml
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\MainWindow.baml
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\RoomDetailsPage.baml
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\BookingApp.g.resources
@@ -94,3 +92,5 @@ D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-wind
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\RegistrationPage.baml
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\ProfilePage.g.cs
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\ProfilePage.baml
+D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\HotelDetailsPage.g.cs
+D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\HotelDetailsPage.baml

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\App.xaml
-62053553221
+6-389623762
 
-16-516735079
+17-1577495395
 202-1208146534
-HotelDetalisPage.xaml;LoginPage.xaml;MainWindow.xaml;ProfilePage.xaml;RegistrationPage.xaml;RoomDetailsPage.xaml;
+HotelDetailsPage.xaml;LoginPage.xaml;MainWindow.xaml;ProfilePage.xaml;RegistrationPage.xaml;RoomDetailsPage.xaml;
 
-True
+False
 

@@ -18,27 +18,26 @@ using MySql.Data.MySqlClient;
 using BookingApp.Model;
 using ZstdSharp.Unsafe;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography.Xml;
 
 namespace BookingApp
 {
     public partial class MainWindow : Window
     {
-        public static string ConnectionString = "SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;";
-        public static MySqlConnection Connection = new MySqlConnection(ConnectionString);
         private List<Hotel> _hotels = new List<Hotel>();
 
         public MainWindow()
         {
             InitializeComponent();
+            UpdateUserMenuVisibility();
+            LoadHotels();
 
-            MySqlConnection connection = new MySqlConnection(ConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT * FROM hotel", connection);
-            connection.Open();
-            DataTable dt = new DataTable();
-            dt.Load(command.ExecuteReader());
-            connection.Close();
+            DataContext = this;
+        }
 
-            List<Hotel> hotelList = new List<Hotel>();
+        public void LoadHotels()
+        {
+            DataTable dt = DataBaseManager.ExecuteQuery("SELECT * FROM hotel");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 int id = Convert.ToInt32(dt.Rows[i]["Id"]);
@@ -49,36 +48,96 @@ namespace BookingApp
 
                 Hotel hotel = new Hotel(id, name, address, numberStars, description);
 
-                hotelList.Add(hotel);
+                _hotels.Add(hotel);
             }
-
-            DataContext = this;
-            _hotels = hotelList;
         }
 
         private void HotelListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Hotel selectedHotel = (Hotel)hotelListBox.SelectedItem;
+            Hotel selectedHotel = (Hotel)HotelListBox.SelectedItem;
 
-            searchPanel.Visibility = Visibility.Collapsed;
-            hotelListBox.Visibility = Visibility.Collapsed;
-            mainFrame.Content = new HotelDetalisPage(selectedHotel);
+            SearchPanel.Visibility = Visibility.Collapsed;
+            HotelListBox.Visibility = Visibility.Collapsed;
+            MainFrame.NavigationService.Navigate(new HotelDetailsPage(selectedHotel));
         }
 
         private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string searchText = tbSearch.Text.ToLower(); 
+            string searchText = TbSearch.Text.ToLower();
             List<Hotel> filteredHotels = _hotels.Where(h => h.Name.ToLower().Contains(searchText) || h.Address.ToLower().Contains(searchText)).ToList();
 
-            hotelListBox.ItemsSource = filteredHotels;
+            HotelListBox.ItemsSource = filteredHotels;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnUserMenu_Click(object sender, RoutedEventArgs e)
         {
-            searchPanel.Visibility = Visibility.Collapsed;
-            hotelListBox.Visibility = Visibility.Collapsed;
+            PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
+        }
 
-            mainFrame.Content = new LoginPage();
+        private void UpdateUserMenuVisibility()
+        {
+            if (UserManager.CurrentUser == null)
+            {
+                BtnLogin.Visibility = Visibility.Visible;
+                BtnRegister.Visibility = Visibility.Visible;
+
+                BtnProfile.Visibility = Visibility.Collapsed;
+                BtnSettings.Visibility = Visibility.Collapsed;
+                BtnLogout.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BtnLogin.Visibility = Visibility.Collapsed;
+                BtnRegister.Visibility = Visibility.Collapsed;
+
+                BtnProfile.Visibility = Visibility.Visible;
+                BtnSettings.Visibility = Visibility.Visible;
+                BtnLogout.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            SearchPanel.Visibility = Visibility.Collapsed;
+            HotelListBox.Visibility = Visibility.Collapsed;
+            PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
+
+            MainFrame.NavigationService.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
+        }
+
+        private void BtnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            SearchPanel.Visibility = Visibility.Collapsed;
+            HotelListBox.Visibility = Visibility.Collapsed;
+            PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
+
+            MainFrame.NavigationService.Navigate(new Uri("RegistrationPage.xaml", UriKind.Relative));
+        }
+
+        private void BtnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            SearchPanel.Visibility = Visibility.Collapsed;
+            HotelListBox.Visibility = Visibility.Collapsed;
+            PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
+
+            MainFrame.NavigationService.Navigate(new Uri("ProfilePage.xaml", UriKind.Relative));
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SearchPanel.Visibility = Visibility.Collapsed;
+            HotelListBox.Visibility = Visibility.Collapsed;
+            PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
+
+            MainFrame.NavigationService.Navigate(new Uri("SettingsPage.xaml", UriKind.Relative));
+        }
+
+        private void BtnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            UserManager.Logout();
+            PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
+
+            UpdateUserMenuVisibility();
         }
     }
 }

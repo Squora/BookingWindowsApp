@@ -34,5 +34,10 @@ namespace BookingApp
             tbEmail.Text += _user.Email;
             tbPassportDetails.Text += _user.PassportDetails;
         }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }
