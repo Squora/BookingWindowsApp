@@ -12,9 +12,16 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="TbSearch" Style="{StaticResource placeHolder}" Tag="Введите название отеля..." Width="250" Height="25" TextChanged="TbSearch_TextChanged"/>
-
+                <TextBox x:Name="TbSearch" Grid.Column="0" Style="{StaticResource placeHolder}" Tag="Введите название отеля..." Width="250" Height="25" TextChanged="TbSearch_TextChanged"/>
+                <ComboBox x:Name="StarFilter" Grid.Row="0" Grid.Column="1" Width="60" SelectionChanged="StarFilter_SelectionChanged">
+                    <CheckBox Content="1 Звезда" IsChecked="{Binding IsChecked1Star}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    <CheckBox Content="2 Звезды" IsChecked="{Binding IsChecked2Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    <CheckBox Content="3 Звезды" IsChecked="{Binding IsChecked3Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    <CheckBox Content="4 Звезды" IsChecked="{Binding IsChecked4Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    <CheckBox Content="5 Звезд" IsChecked="{Binding IsChecked5Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                </ComboBox>
                 <StackPanel Grid.Column="1" Margin="470, 0, 0, 0">
                     <ToggleButton x:Name="BtnUserMenu" Width="25" Height="25" HorizontalAlignment="Right" Click="BtnUserMenu_Click">
                         <Image Width="40" Height="40" />

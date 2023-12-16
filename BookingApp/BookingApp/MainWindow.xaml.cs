@@ -26,12 +26,78 @@ namespace BookingApp
     {
         private List<Hotel> _hotels = new List<Hotel>();
 
+
+        private bool _isChecked1Star;
+        public bool IsChecked1Star
+        {
+            get { return _isChecked1Star; }
+            set
+            {
+                if (_isChecked1Star != value)
+                {
+                    _isChecked1Star = value;
+                }
+            }
+        }
+
+        private bool _isChecked2Stars;
+        public bool IsChecked2Stars
+        {
+            get { return _isChecked2Stars; }
+            set
+            {
+                if (_isChecked2Stars != value)
+                {
+                    _isChecked2Stars = value;
+                }
+            }
+        }
+
+        private bool _isChecked3Stars;
+        public bool IsChecked3Stars
+        {
+            get { return _isChecked3Stars; }
+            set
+            {
+                if (_isChecked3Stars != value)
+                {
+                    _isChecked3Stars = value;
+                }
+            }
+        }
+
+        private bool _isChecked4Stars;
+        public bool IsChecked4Stars
+        {
+            get { return _isChecked4Stars; }
+            set
+            {
+                if (_isChecked4Stars != value)
+                {
+                    _isChecked4Stars = value;
+                }
+            }
+        }
+
+        private bool _isChecked5Stars;
+        public bool IsChecked5Stars
+        {
+            get { return _isChecked5Stars; }
+            set
+            {
+                if (_isChecked5Stars != value)
+                {
+                    _isChecked5Stars = value;
+                }
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             UpdateUserMenuVisibility();
             LoadHotels();
-
+            SortByRating();
             DataContext = this;
         }
 
@@ -52,6 +118,37 @@ namespace BookingApp
             }
         }
 
+        private void ApplyFilters()
+        {
+            List<Hotel> filteredHotels;
+            if (!IsChecked1Star && !IsChecked2Stars && !IsChecked3Stars && !IsChecked4Stars && !IsChecked5Stars)
+            {
+                filteredHotels = new List<Hotel>(_hotels);
+            }
+            else
+            {
+                filteredHotels = _hotels
+                    .Where(hotel => (IsChecked1Star && hotel.Rating == 1) || (IsChecked2Stars && hotel.Rating == 2)
+                    || (IsChecked3Stars && hotel.Rating == 3) || (IsChecked4Stars && hotel.Rating == 4) || (IsChecked5Stars && hotel.Rating == 5))
+                    .ToList();
+            }
+
+            HotelListBox.ItemsSource = filteredHotels;
+        }
+
+        private void SortByRating()
+        {
+            List<Hotel> sortedHotels = _hotels;
+            sortedHotels.Sort();
+
+            HotelListBox.ItemsSource = sortedHotels;
+        }
+
+        private void StarFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
         private void HotelListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Hotel selectedHotel = (Hotel)HotelListBox.SelectedItem;
@@ -64,7 +161,8 @@ namespace BookingApp
         private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = TbSearch.Text.ToLower();
-            List<Hotel> filteredHotels = _hotels.Where(h => h.Name.ToLower().Contains(searchText) || h.Address.ToLower().Contains(searchText)).ToList();
+            List<Hotel> filteredHotels = _hotels
+                .Where(hotel => hotel.Name.ToLower().Contains(searchText) || hotel.Address.ToLower().Contains(searchText)).ToList();
 
             HotelListBox.ItemsSource = filteredHotels;
         }
@@ -138,6 +236,16 @@ namespace BookingApp
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
             UpdateUserMenuVisibility();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ApplyFilters();
         }
     }
 }
