@@ -32,7 +32,7 @@ namespace BookingApp
             InitializeComponent();
 
             MySqlConnection connection = new MySqlConnection(ConnectionString);
-            MySqlCommand command = new MySqlCommand("select * from hotel", connection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM hotel", connection);
             connection.Open();
             DataTable dt = new DataTable();
             dt.Load(command.ExecuteReader());
@@ -78,7 +78,7 @@ namespace BookingApp
             searchPanel.Visibility = Visibility.Collapsed;
             hotelListBox.Visibility = Visibility.Collapsed;
 
-            mainFrame.Content = new RegistrationPage();
+            mainFrame.Content = new LoginPage();
         }
     }
 }

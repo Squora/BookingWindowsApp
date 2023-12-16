@@ -9,19 +9,21 @@ namespace BookingApp.Model
     public class User
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string PassportDetails { get; set; }
         public string Password { get; set; }
 
-        public User(int id, string name, string surname, string email, string phoneNumber, 
+        public User(int id, string firstName, string lastName, string middleName, string email, string phoneNumber, 
             string passportDetails, string password)
         {
             Id = id;
-            Name = name;
-            Surname = surname;
+            FirstName = firstName;
+            LastName = lastName;
+            MiddleName = middleName;
             Email = email;
             PhoneNumber = phoneNumber;
             PassportDetails = passportDetails;
@@ -30,7 +32,7 @@ namespace BookingApp.Model
 
         public void Rename(string newName)
         {
-            Name = newName;
+
         }
     }
 }

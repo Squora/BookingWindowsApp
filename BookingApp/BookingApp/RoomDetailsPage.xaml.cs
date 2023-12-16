@@ -10,6 +10,7 @@ namespace BookingApp
     public partial class RoomDetailsPage : Page
     {
         private Room _selectedRoom;
+        private User _user;
         private const int _awaitingConfirmationStatus = 1;
 
         public RoomDetailsPage(Room selectedRoom)
@@ -17,6 +18,7 @@ namespace BookingApp
             InitializeComponent();
 
             _selectedRoom = selectedRoom;
+            _user = UserManager.CurrentUser;
 
             roomDetails.DataContext = _selectedRoom;
         }
@@ -36,7 +38,7 @@ namespace BookingApp
 
                         using (var cmd = new MySqlCommand(insertBookingQuery, connection))
                         {
-                            cmd.Parameters.AddWithValue("@ClientId", 1);
+                            cmd.Parameters.AddWithValue("@ClientId", _user.Id);
                             cmd.Parameters.AddWithValue("@RoomId", _selectedRoom.Id);
                             cmd.Parameters.AddWithValue("@StartStayDate", startDatePicker.SelectedDate);
                             cmd.Parameters.AddWithValue("@EndStayDate", endDatePicker.SelectedDate);

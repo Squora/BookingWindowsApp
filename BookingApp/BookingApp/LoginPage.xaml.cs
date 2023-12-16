@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using BookingApp.Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace BookingApp
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginPage.xaml
-    /// </summary>
     public partial class LoginPage : Page
     {
         public LoginPage()
@@ -37,22 +35,40 @@ namespace BookingApp
                 {
                     connection.Open();
 
-                    string checkUserQuery = "SELECT COUNT(*) FROM client WHERE (phone_number = @Login OR email = @Login) AND password = @Password;";
+                    string checkUserQuery = "SELECT * FROM client WHERE (phone_number = @Login OR email = @Login) AND password = @Password;";
 
                     using (var cmdCheckUser = new MySqlCommand(checkUserQuery, connection))
                     {
                         cmdCheckUser.Parameters.AddWithValue("@Login", login);
                         cmdCheckUser.Parameters.AddWithValue("@Password", password);
 
-                        int userCount = Convert.ToInt32(cmdCheckUser.ExecuteScalar());
+                        using (var reader = cmdCheckUser.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                if (reader.Read())
+                                {
+                                    int id = reader.GetInt32("id");
+                                    string firstName = reader.GetString("first_name");
+                                    string lastName = reader.GetString("last_name");
+                                    string middleName = reader.GetString("middle_name");
+                                    string passportDetails = reader.GetString("passport_details");
+                                    string phoneNumber = reader.GetString("phone_number");
+                                    string email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString("email");
+                                    string userPassword = reader.GetString("password");
 
-                        if (userCount > 0)
-                        {
-                            MessageBox.Show("Вход выполнен успешно!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Неверный логин или пароль. Пожалуйста, проверьте введенные данные.");
+                                    User user = new User(id, firstName, lastName, middleName, passportDetails, phoneNumber, email, userPassword);
+                                    UserManager.SetCurrentUser(user);
+
+                                    spEnter.Visibility = Visibility.Collapsed;
+                                    spButtons.Visibility = Visibility.Collapsed;
+                                    mainFrame.Content = new ProfilePage();
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Неверный логин или пароль. Пожалуйста, проверьте введенные данные.");
+                            }
                         }
                     }
                 }

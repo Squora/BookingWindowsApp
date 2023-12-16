@@ -50,7 +50,7 @@ namespace BookingApp
 
                         if (userCount > 0)
                         {
-                            MessageBox.Show("Пользователь с указанным телефоном уже зарегистрирован. Пожалуйста, введите другой телефон.");
+                            MessageBox.Show("Пользователь с указанным телефоном уже зарегистрирован");
                         }
                         else
                         {
@@ -71,6 +71,9 @@ namespace BookingApp
 
                                 MessageBox.Show("Регистрация успешно завершена!");
                             }
+
+                            svMain.Visibility = Visibility.Collapsed; 
+                            mainFrame.Content = new LoginPage();
                         }
                     }
                 }
