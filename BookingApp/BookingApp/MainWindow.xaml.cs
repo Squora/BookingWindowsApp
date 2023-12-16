@@ -140,6 +140,7 @@ namespace BookingApp
         {
             List<Hotel> sortedHotels = _hotels;
             sortedHotels.Sort();
+            sortedHotels.Reverse();
 
             HotelListBox.ItemsSource = sortedHotels;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public class Hotel : IComparable<int>
+    public class Hotel : IComparable<Hotel>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,9 +24,10 @@ namespace BookingApp.Model
             Rating = rating;
             Description = description;
         }
-        public int CompareTo(int other)
+
+        public int CompareTo(Hotel other)
         {
-            return Rating.CompareTo(other);
+            return Rating.CompareTo(other.Rating);
         }
     }
 }
