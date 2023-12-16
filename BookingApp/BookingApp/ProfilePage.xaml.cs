@@ -37,7 +37,9 @@ namespace BookingApp
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Window.GetWindow(this)?.Close();
         }
     }
 }

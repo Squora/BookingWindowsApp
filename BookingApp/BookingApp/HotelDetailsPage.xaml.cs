@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Data;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BookingApp
 {
@@ -42,53 +43,6 @@ namespace BookingApp
 
         public void LoadRoomsForHotel(int hotelId)
         {
-            //using (MySqlConnection connection = new MySqlConnection("SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;"))
-            //{
-            //    connection.Open();
-
-            //    string query = "SELECT " +
-            //        "room.id, " +
-            //        "room_to_hotel.room_id, " +
-            //        "room_type.name AS Type, " +
-            //        "room.number, " +
-            //        "room.cost_per_night, " +
-            //        "availability.name AS Availability, " +
-            //        "room.photos " +
-            //        "FROM " +
-            //        "room_to_hotel " +
-            //        "JOIN " +
-            //        "room ON room_to_hotel.room_id = room.id " +
-            //        "JOIN " +
-            //        "room_type ON room.type = room_type.id " +
-            //        "JOIN " +
-            //        "availability ON room.availability = availability.id " +
-            //        "WHERE " +
-            //        "room_to_hotel.hotel_id = @HotelId;";
-
-            //    using (MySqlCommand command = new MySqlCommand(query, connection))
-            //    {
-            //        command.Parameters.AddWithValue("@HotelId", hotelId);
-
-            //        using (MySqlDataReader reader = command.ExecuteReader())
-            //        {
-            //            _rooms.Clear();
-
-            //            while (reader.Read())
-            //            {
-            //                int id = reader.GetInt32(reader.GetOrdinal("Id"));
-            //                string number = reader.GetString(reader.GetOrdinal("Number"));
-            //                string type = reader.GetString(reader.GetOrdinal("Type"));
-            //                string costPerNight = reader.GetString(reader.GetOrdinal("Cost_Per_Night"));
-            //                string availability = reader.GetString(reader.GetOrdinal("Availability"));
-
-            //                Room room = new Room(id, number, type, costPerNight, availability);
-            //                _rooms.Add(room);
-            //            }
-            //        }
-            //    }
-
-            //    connection.Close();
-            //}
             string query = "SELECT " +
                     "room.id, " +
                     "room_to_hotel.room_id, " +
@@ -111,9 +65,9 @@ namespace BookingApp
             DataTable dt = DataBaseManager.ExecuteQuery(query, mspHotel);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                int id = Convert.ToInt32(dt.Rows[i]["Id"]);
-                string number = dt.Rows[i]["Number"].ToString();
-                string type = dt.Rows[i]["Type"].ToString();
+                int id = Convert.ToInt32(dt.Rows[i]["id"]);
+                string number = dt.Rows[i]["number"].ToString();
+                string type = dt.Rows[i]["type"].ToString();
                 string costPerNight = dt.Rows[i]["cost_per_night"].ToString();
                 string availability = dt.Rows[i]["availability"].ToString();
 
@@ -125,36 +79,23 @@ namespace BookingApp
 
         public void LoadReviewsForHotel(int hotelId)
         {
-            using (MySqlConnection connection = new MySqlConnection("SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;"))
+            string query = "SELECT r.id, r.text, r.grade, r.date, r.author, r.photo_link " +
+                           "FROM review r " +
+                           "JOIN review_to_hotel rh ON r.id = rh.review_id " +
+                           "WHERE rh.hotel_id = @HotelId";
+            MySqlParameter mspHotel = new MySqlParameter("@HotelId", hotelId);
+            DataTable dt = DataBaseManager.ExecuteQuery(query, mspHotel);
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                connection.Open();
+                int id = Convert.ToInt32(dt.Rows[i]["id"]);
+                string text = dt.Rows[i]["text"].ToString();
+                int grade = Convert.ToInt32(dt.Rows[i]["grade"]);
+                DateTime date = (DateTime)dt.Rows[i]["date"];
+                string author = dt.Rows[i]["author"].ToString();
 
-                string query = "SELECT r.id, r.text, r.grade, r.date, r.author, r.photo_link " +
-                               "FROM review r " +
-                               "JOIN hotel_to_review hr ON r.id = hr.review_id " +
-                               "WHERE hr.hotel_id = @HotelId";
+                Review review = new Review(id, text, grade, date, author);
 
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@HotelId", hotelId);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        _reviews.Clear();
-
-                        while (reader.Read())
-                        {
-                            int id = reader.GetInt32(reader.GetOrdinal("id"));
-                            string text = reader.GetString(reader.GetOrdinal("text"));
-                            int grade = reader.GetInt32(reader.GetOrdinal("grade"));
-                            DateTime date = reader.GetDateTime(reader.GetOrdinal("date"));
-                            string author = reader.GetString(reader.GetOrdinal("author"));
-
-                            Review review = new Review(id, text, grade, date, author);
-                            _reviews.Add(review);
-                        }
-                    }
-                }
+                _reviews.Add(review);
             }
         }
 
@@ -162,27 +103,7 @@ namespace BookingApp
         private void RoomListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Room selectedRoom = (Room)roomListBox.SelectedItem;
-
-            //hotelDetails.Visibility = Visibility.Collapsed;
-            //roomListBox.Visibility = Visibility.Collapsed;
-            //reviewListBox.Visibility = Visibility.Collapsed;
-            //mainFrame.Content = new RoomDetailsPage(selectedRoom);
-
             NavigationService.Navigate(new RoomDetailsPage(selectedRoom));
-        }
-
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            ScrollViewer scrollViewer = (ScrollViewer)sender;
-            if (e.Delta < 0)
-            {
-                scrollViewer.LineRight();
-            }
-            else
-            {
-                scrollViewer.LineLeft();
-            }
-            e.Handled = true;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

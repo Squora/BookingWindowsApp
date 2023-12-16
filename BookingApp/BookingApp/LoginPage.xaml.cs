@@ -1,8 +1,11 @@
 ﻿using BookingApp.Model;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,53 +32,32 @@ namespace BookingApp
             string login = LoginTextBox.Text;
             string password = PasswordBox.Password;
 
-            using (var connection = new MySqlConnection("SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;"))
+            string query = "SELECT * FROM user WHERE (phone_number = @Login OR email = @Login) AND password = @Password;";
+            MySqlParameter mspLogin = new MySqlParameter("@Login", login);
+            MySqlParameter mspPassword = new MySqlParameter("@Password", password);
+            DataTable dt = DataBaseManager.ExecuteQuery(query, mspLogin, mspPassword);
+
+            if (dt.Rows.Count > 0)
             {
-                try
-                {
-                    connection.Open();
+                int id = Convert.ToInt32(dt.Rows[0]["id"]);
+                string firstName = dt.Rows[0]["first_name"].ToString();
+                string lastName = dt.Rows[0]["last_name"].ToString();
+                string middleName = dt.Rows[0]["middle_name"].ToString();
+                string passportDetails = dt.Rows[0]["passport_details"].ToString();
+                string phoneNumber = dt.Rows[0]["phone_number"].ToString();
+                string email = dt.Rows[0]["email"].ToString();
+                string userPassword = dt.Rows[0]["password"].ToString();
 
-                    string checkUserQuery = "SELECT * FROM client WHERE (phone_number = @Login OR email = @Login) AND password = @Password;";
+                User user = new User(id, firstName, lastName, middleName, passportDetails, phoneNumber, email, userPassword);
+                UserManager.SetCurrentUser(user);
 
-                    using (var cmdCheckUser = new MySqlCommand(checkUserQuery, connection))
-                    {
-                        cmdCheckUser.Parameters.AddWithValue("@Login", login);
-                        cmdCheckUser.Parameters.AddWithValue("@Password", password);
-
-                        using (var reader = cmdCheckUser.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                if (reader.Read())
-                                {
-                                    int id = reader.GetInt32("id");
-                                    string firstName = reader.GetString("first_name");
-                                    string lastName = reader.GetString("last_name");
-                                    string middleName = reader.GetString("middle_name");
-                                    string passportDetails = reader.GetString("passport_details");
-                                    string phoneNumber = reader.GetString("phone_number");
-                                    string email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString("email");
-                                    string userPassword = reader.GetString("password");
-
-                                    User user = new User(id, firstName, lastName, middleName, passportDetails, phoneNumber, email, userPassword);
-                                    UserManager.SetCurrentUser(user);
-
-                                    MainWindow mainWindow = new MainWindow();
-                                    mainWindow.Show();
-                                    Window.GetWindow(this)?.Close();
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Неверный логин или пароль. Пожалуйста, проверьте введенные данные.");
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при входе: {ex.Message}");
-                }
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                Window.GetWindow(this)?.Close();
+            }
+            else
+            {
+                MessageBox.Show("Неверный логин или пароль!");
             }
         }
 
@@ -84,7 +66,7 @@ namespace BookingApp
             spEnter.Visibility = Visibility.Collapsed;
             spButtons.Visibility = Visibility.Collapsed;
 
-            mainFrame.Content = new RegistrationPage();
+            NavigationService.Navigate(new Uri("RegistrationPage.xaml", UriKind.Relative));
         }
 
         private void BtnForgotPassword_Click(object sender, RoutedEventArgs e)
