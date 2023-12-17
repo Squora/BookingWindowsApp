@@ -71,7 +71,10 @@ namespace BookingApp
 
         private void BtnForgotPassword_Click(object sender, RoutedEventArgs e)
         {
+            spEnter.Visibility = Visibility.Collapsed;
+            spButtons.Visibility = Visibility.Collapsed;
 
+            NavigationService.Navigate(new Uri("PasswordRecoveryPage.xaml", UriKind.Relative));
         }
     }
 }
