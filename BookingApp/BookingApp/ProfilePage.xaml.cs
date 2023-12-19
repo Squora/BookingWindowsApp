@@ -29,7 +29,7 @@ namespace BookingApp
         {
             InitializeComponent();
 
-            _user = UserManager.CurrentUser;
+            _user = UserManager.GetUser();
             LoadBookings();
 
             tbFirstName.Text += _user.FirstName;

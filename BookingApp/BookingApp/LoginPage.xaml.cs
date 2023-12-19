@@ -49,7 +49,7 @@ namespace BookingApp
                 string userPassword = dt.Rows[0]["password"].ToString();
 
                 User user = new User(id, firstName, lastName, middleName, passportDetails, phoneNumber, email, userPassword);
-                UserManager.SetCurrentUser(user);
+                UserManager.SetUser(user);
 
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
@@ -75,6 +75,13 @@ namespace BookingApp
             spButtons.Visibility = Visibility.Collapsed;
 
             NavigationService.Navigate(new Uri("PasswordRecoveryPage.xaml", UriKind.Relative));
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Window.GetWindow(this)?.Close();
         }
     }
 }

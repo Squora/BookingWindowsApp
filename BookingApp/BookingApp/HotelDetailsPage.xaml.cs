@@ -41,7 +41,50 @@ namespace BookingApp
             LbReviews.ItemsSource = _reviews;
         }
 
-        public void LoadRoomsForHotel(int hotelId)
+        private void LbRooms_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scrollViewer = FindChild<ScrollViewer>(LbRooms);
+
+            if (scrollViewer != null)
+            {
+                if (e.Delta > 0)
+                {
+                    scrollViewer.LineLeft();
+                }
+                else
+                {
+                    scrollViewer.LineRight();
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private T FindChild<T>(DependencyObject parent) where T : DependencyObject
+        {
+            if (parent == null) return null;
+
+            int childCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childCount; i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is T)
+                {
+                    return (T)child;
+                }
+
+                T result = FindChild<T>(child);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+    public void LoadRoomsForHotel(int hotelId)
         {
             string query = "SELECT " +
                     "room.id, " +
@@ -109,7 +152,6 @@ namespace BookingApp
                 _reviews.Add(review);
             }
         }
-
 
         private void RoomListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

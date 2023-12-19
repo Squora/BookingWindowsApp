@@ -9,17 +9,22 @@ namespace BookingApp
 {
     public static class UserManager
     {
-        public static bool IsLogined { get { return CurrentUser is not null; } }
-        public static User? CurrentUser { get; private set; }
+        private static User? _user;
+        public static bool IsLogined { get { return _user is not null; } }
 
-        public static void SetCurrentUser(User user)
+        public static User? GetUser()
         {
-            CurrentUser = user;
+            return _user;
         }
 
-        public static void Logout()
+        public static void SetUser(User user)
         {
-            CurrentUser = null;
+            _user = user;
+        }
+
+        public static void ResetUser()
+        {
+            _user = null;
         }
     }
 }

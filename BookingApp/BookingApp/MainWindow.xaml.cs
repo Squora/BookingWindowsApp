@@ -177,7 +177,7 @@ namespace BookingApp
 
         private void UpdateUserMenuVisibility()
         {
-            if (UserManager.CurrentUser == null)
+            if (!UserManager.IsLogined)
             {
                 BtnLogin.Visibility = Visibility.Visible;
                 BtnRegister.Visibility = Visibility.Visible;
@@ -235,7 +235,7 @@ namespace BookingApp
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
         {
-            UserManager.Logout();
+            UserManager.ResetUser();
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
             UpdateUserMenuVisibility();

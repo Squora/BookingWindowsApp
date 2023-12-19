@@ -18,7 +18,7 @@
                     BorderThickness="0" Click="BtnBack_Click"/>
             <Separator Background="Black"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" CanContentScroll="False">
             <StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -35,6 +35,11 @@
                     <ListBox x:Name="LbRooms" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0" 
                              ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False"
                              SelectionChanged="RoomListBox_SelectionChanged">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollViewer">
+                                <EventSetter Event="PreviewMouseWheel" Handler="LbRooms_PreviewMouseWheel"/>
+                            </Style>
+                        </ListBox.Resources>
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Rows="1" />

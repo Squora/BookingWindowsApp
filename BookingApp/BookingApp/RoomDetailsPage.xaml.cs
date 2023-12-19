@@ -18,9 +18,9 @@ namespace BookingApp
             InitializeComponent();
 
             _selectedRoom = selectedRoom;
-            _user = UserManager.CurrentUser;
+            _user = UserManager.GetUser();
 
-            roomDetails.DataContext = _selectedRoom;
+            SpRoomDetails.DataContext = _selectedRoom;
         }
 
         private void BtnBook_Click(object sender, RoutedEventArgs e)
@@ -33,8 +33,8 @@ namespace BookingApp
                                 $" VALUES (@UserId, @RoomId, @StartStayDate, @EndStayDate, @Status);";
                     MySqlParameter mspUser = new MySqlParameter("@UserId", _user.Id);
                     MySqlParameter mspRoom = new MySqlParameter("@RoomId", _selectedRoom.Id);
-                    MySqlParameter mspStartDate = new MySqlParameter("@StartStayDate", startDatePicker.SelectedDate);
-                    MySqlParameter mspEndDate = new MySqlParameter("@EndStayDate", endDatePicker.SelectedDate);
+                    MySqlParameter mspStartDate = new MySqlParameter("@StartStayDate", DpStart.SelectedDate);
+                    MySqlParameter mspEndDate = new MySqlParameter("@EndStayDate", DpEnd.SelectedDate);
                     MySqlParameter mspStatus = new MySqlParameter("@Status", _awaitingConfirmationStatus);
                     int rowAffected = DataBaseManager.ExecuteNonQuery(insertQuery, mspUser, mspRoom, mspStartDate, mspEndDate, mspStatus);
                     if (rowAffected > 0)
@@ -59,8 +59,8 @@ namespace BookingApp
 
         private bool IsDatesCorrect()
         {
-            return startDatePicker.SelectedDate != null && endDatePicker.SelectedDate != null &&
-                startDatePicker.SelectedDate > DateTime.Now && endDatePicker.SelectedDate > startDatePicker.SelectedDate;
+            return DpStart.SelectedDate != null && DpEnd.SelectedDate != null &&
+                DpStart.SelectedDate > DateTime.Now && DpEnd.SelectedDate > DpStart.SelectedDate;
         }
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {

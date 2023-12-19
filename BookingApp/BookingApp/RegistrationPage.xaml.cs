@@ -45,12 +45,12 @@ namespace BookingApp
             MySqlParameter mspEmail = new MySqlParameter("@Email", email);
             MySqlParameter mspPassword = new MySqlParameter("@Password", password);
 
-            if (!IsUserExist(phone, passportDetails))
+            if (!IsUserExist(phone, passportDetails) && IsPasswordStrong(password))
             {
                 DataBaseManager.ExecuteNonQuery(query, mspFirstName, mspLastName, mspMiddleName, mspPassportDetails, mspPhone, mspEmail, mspPassword);
                 MessageBox.Show("Регистрация успешно завершена!");
 
-                svMain.Visibility = Visibility.Collapsed;
+                //svMain.Visibility = Visibility.Collapsed;
                 NavigationService.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
             }
         }
@@ -73,6 +73,40 @@ namespace BookingApp
             {
                 return false;
             }
+        }
+
+        private bool IsPasswordStrong(string password)
+        {
+            PasswordValidator.Strength strength = PasswordValidator.CheckStrength(password);
+            bool isStrong = false;
+
+            switch (strength)
+            {
+                case PasswordValidator.Strength.Weak:
+                    LblPasswordStrength.Content = "Слабый";
+                    LblPasswordStrength.Foreground = Brushes.Red;
+                    isStrong = false;
+                    break;
+                case PasswordValidator.Strength.Medium:
+                    LblPasswordStrength.Content = "Средний";
+                    LblPasswordStrength.Foreground = Brushes.Orange;
+                    isStrong = false;
+                    break;
+                case PasswordValidator.Strength.Strong:
+                    LblPasswordStrength.Content = "Сильный";
+                    LblPasswordStrength.Foreground = Brushes.Green;
+                    isStrong = true;
+                    break;
+            }
+
+            return isStrong;
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Window.GetWindow(this)?.Close();
         }
     }
 }

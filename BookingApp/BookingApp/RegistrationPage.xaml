@@ -9,55 +9,45 @@
       Title="RegistrationPage">
 
     <Grid>
-        <ScrollViewer x:Name="svMain" HorizontalScrollBarVisibility="Hidden" CanContentScroll="False">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
+                <Button Content="Назад" Width="70" Height="30" HorizontalAlignment="Left" Background="Transparent"
+                        BorderThickness="0" Click="BtnBack_Click"/>
+                <Separator Background="Black"/>
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" CanContentScroll="False">
+                <StackPanel>
+                    <TextBlock Text="Регистрация" FontSize="24" FontWeight="Bold" Margin="10"/>
 
-                <TextBlock Text="Регистрация" FontSize="24" FontWeight="Bold" Margin="10" Grid.Row="0"/>
+                    <Label Content="Имя:" Margin="5"/>
+                    <TextBox x:Name="TbFirstName" Margin="5, 0, 500, 0"/>
 
-                <Label Content="Имя:" Margin="5" Grid.Row="1"/>
-                <TextBox x:Name="TbFirstName" Margin="5, 0, 500, 0" Grid.Row="2"/>
+                    <Label Content="Фамилия:" Margin="5"/>
+                    <TextBox x:Name="TbLastName" Margin="5, 0, 500, 0"/>
 
-                <Label Content="Фамилия:" Margin="5" Grid.Row="3"/>
-                <TextBox x:Name="TbLastName" Margin="5, 0, 500, 0" Grid.Row="4"/>
-    
-                <Label Content="Отчество:" Margin="5" Grid.Row="5"/>
-                <TextBox x:Name="TbMiddleName" Margin="5, 0, 500, 0" Grid.Row="6"/>
+                    <Label Content="Отчество:" Margin="5"/>
+                    <TextBox x:Name="TbMiddleName" Margin="5, 0, 500, 0"/>
 
-                <Label Content="Паспортные данные:" Margin="5" Grid.Row="7"/>
-                <TextBox x:Name="TbPassportDetails" Margin="5, 0, 500, 0" Grid.Row="8"/>
+                    <Label Content="Паспортные данные:" Margin="5"/>
+                    <TextBox x:Name="TbPassportDetails" MaxLength="10" Margin="5, 0, 500, 0"/>
 
-                <Label Content="Телефон:" Margin="5" Grid.Row="9"/>
-                <TextBox x:Name="TbPhoneNumber" Margin="5, 0, 500, 0" Grid.Row="10"/>
+                    <Label Content="Телефон:" Margin="5"/>
+                    <TextBox x:Name="TbPhoneNumber" Margin="5, 0, 500, 0"/>
 
-                <Label Content="Почта:" Margin="5" Grid.Row="11"/>
-                <TextBox x:Name="TbEmail" Margin="5, 0, 500, 0" Grid.Row="12"/>
+                    <Label Content="Почта:" Margin="5"/>
+                    <TextBox x:Name="TbEmail" Margin="5, 0, 500, 0"/>
 
-                <Label Content="Пароль:" Margin="5" Grid.Row="13"/>
-                <PasswordBox x:Name="PasswordBox" Margin="5, 0, 500, 0" Grid.Row="14"/>
+                    <Label Content="Пароль:" Margin="5"/>
+                    <PasswordBox x:Name="PasswordBox" Margin="5, 0, 500, 0"/>
+                    <Label x:Name="LblPasswordStrength" Margin="5"/>
 
-                <Button Content="Зарегистрироваться" Click="BtnRegister_Click" Margin="10" Width="200" Grid.Row="15" HorizontalAlignment="Center"/>
-            </Grid>
-        </ScrollViewer>
-
-        <Frame x:Name="mainFrame"></Frame>
+                    <Button Content="Зарегистрироваться" Click="BtnRegister_Click" Margin="10" Width="200" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>
