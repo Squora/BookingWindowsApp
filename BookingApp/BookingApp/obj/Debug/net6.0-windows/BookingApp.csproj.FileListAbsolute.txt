@@ -96,3 +96,4 @@ D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-wind
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\HotelDetailsPage.baml
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\PasswordRecoveryPage.g.cs
 D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\PasswordRecoveryPage.baml
+D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net6.0-windows\BookingApp.sourcelink.json

@@ -155,8 +155,9 @@ namespace BookingApp
         {
             Hotel selectedHotel = (Hotel)HotelListBox.SelectedItem;
 
-            SearchPanel.Visibility = Visibility.Collapsed;
             HotelListBox.Visibility = Visibility.Collapsed;
+            SpFilters.Visibility = Visibility.Collapsed;
+            TbSearch.Visibility = Visibility.Collapsed;
             MainFrame.NavigationService.Navigate(new HotelDetailsPage(selectedHotel));
         }
 
@@ -198,7 +199,7 @@ namespace BookingApp
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            SearchPanel.Visibility = Visibility.Collapsed;
+            SpMain.Visibility = Visibility.Collapsed;
             HotelListBox.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
@@ -207,7 +208,7 @@ namespace BookingApp
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            SearchPanel.Visibility = Visibility.Collapsed;
+            SpMain.Visibility = Visibility.Collapsed;
             HotelListBox.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
@@ -216,7 +217,7 @@ namespace BookingApp
 
         private void BtnProfile_Click(object sender, RoutedEventArgs e)
         {
-            SearchPanel.Visibility = Visibility.Collapsed;
+            SpMain.Visibility = Visibility.Collapsed;
             HotelListBox.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
@@ -225,7 +226,7 @@ namespace BookingApp
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-            SearchPanel.Visibility = Visibility.Collapsed;
+            SpMain.Visibility = Visibility.Collapsed;
             HotelListBox.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 

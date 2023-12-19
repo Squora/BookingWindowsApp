@@ -35,7 +35,7 @@ namespace BookingApp
             DataContext = _selectedHotel;
 
             LoadRoomsForHotel(_selectedHotel.Id);
-            roomListBox.ItemsSource = _rooms;
+            LbRooms.ItemsSource = _rooms;
 
             LoadReviewsForHotel(_selectedHotel.Id);
             LbReviews.ItemsSource = _reviews;
@@ -113,7 +113,7 @@ namespace BookingApp
 
         private void RoomListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Room selectedRoom = (Room)roomListBox.SelectedItem;
+            Room selectedRoom = (Room)LbRooms.SelectedItem;
             NavigationService.Navigate(new RoomDetailsPage(selectedRoom));
         }
 

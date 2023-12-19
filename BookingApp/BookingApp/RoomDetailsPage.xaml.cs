@@ -25,28 +25,35 @@ namespace BookingApp
 
         private void BtnBook_Click(object sender, RoutedEventArgs e)
         {
-            if (IsDatesCorrect())
+            if (UserManager.IsLogined)
             {
-                string insertQuery = "INSERT INTO booking (user_id, room_id, start_stay_date, end_stay_date, status)" +
-                            $" VALUES (@UserId, @RoomId, @StartStayDate, @EndStayDate, @Status);";
-                MySqlParameter mspUser = new MySqlParameter("@UserId", _user.Id);
-                MySqlParameter mspRoom = new MySqlParameter("@RoomId", _selectedRoom.Id);
-                MySqlParameter mspStartDate = new MySqlParameter("@StartStayDate", startDatePicker.SelectedDate);
-                MySqlParameter mspEndDate = new MySqlParameter("@EndStayDate", endDatePicker.SelectedDate);
-                MySqlParameter mspStatus = new MySqlParameter("@Status", _awaitingConfirmationStatus);
-                int rowAffected = DataBaseManager.ExecuteNonQuery(insertQuery, mspUser, mspRoom, mspStartDate, mspEndDate, mspStatus);
-                if (rowAffected > 0)
+                if (IsDatesCorrect())
                 {
-                    MessageBox.Show("Комната успешно забронирована!");
+                    string insertQuery = "INSERT INTO booking (user_id, room_id, start_stay_date, end_stay_date, status)" +
+                                $" VALUES (@UserId, @RoomId, @StartStayDate, @EndStayDate, @Status);";
+                    MySqlParameter mspUser = new MySqlParameter("@UserId", _user.Id);
+                    MySqlParameter mspRoom = new MySqlParameter("@RoomId", _selectedRoom.Id);
+                    MySqlParameter mspStartDate = new MySqlParameter("@StartStayDate", startDatePicker.SelectedDate);
+                    MySqlParameter mspEndDate = new MySqlParameter("@EndStayDate", endDatePicker.SelectedDate);
+                    MySqlParameter mspStatus = new MySqlParameter("@Status", _awaitingConfirmationStatus);
+                    int rowAffected = DataBaseManager.ExecuteNonQuery(insertQuery, mspUser, mspRoom, mspStartDate, mspEndDate, mspStatus);
+                    if (rowAffected > 0)
+                    {
+                        MessageBox.Show("Комната успешно забронирована!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Произошла ошибка");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Произошла ошибка");
+                    MessageBox.Show("Выберите даты пребывания");
                 }
             }
             else
             {
-                MessageBox.Show("Выберите даты пребывания");
+                MessageBox.Show("Вы не вошли в аккаунт");
             }
         }
 
