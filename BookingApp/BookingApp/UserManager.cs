@@ -9,6 +9,7 @@ namespace BookingApp
 {
     public static class UserManager
     {
+        public static bool IsLogined { get { return CurrentUser is not null; } }
         public static User? CurrentUser { get; private set; }
 
         public static void SetCurrentUser(User user)

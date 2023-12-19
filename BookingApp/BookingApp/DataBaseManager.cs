@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp
 {
@@ -18,10 +19,18 @@ namespace BookingApp
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    connection.Open();
-                    DataTable dataTable = new DataTable();
-                    dataTable.Load(command.ExecuteReader());
-                    return dataTable;
+                    try
+                    {
+                        connection.Open();
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(command.ExecuteReader());
+                        return dataTable;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при выполнении запроса: {ex.Message}");
+                        throw;
+                    }
                 }
             }
         }
@@ -32,11 +41,19 @@ namespace BookingApp
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddRange(parameters);
-                    connection.Open();
-                    DataTable dataTable = new DataTable();
-                    dataTable.Load(command.ExecuteReader());
-                    return dataTable;
+                    try
+                    {
+                        command.Parameters.AddRange(parameters);
+                        connection.Open();
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(command.ExecuteReader());
+                        return dataTable;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при выполнении запроса: {ex.Message}");
+                        throw;
+                    }
                 }
             }
         }
@@ -54,7 +71,8 @@ namespace BookingApp
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Ошибка при выполнении запроса: {ex.Message}");
+                        MessageBox.Show($"Ошибка при выполнении запроса: {ex.Message}");
+                        throw;
                     }
                 }
             }
@@ -74,8 +92,8 @@ namespace BookingApp
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Ошибка при выполнении запроса: {ex.Message}");
-                        return 0;
+                        MessageBox.Show($"Ошибка при выполнении запроса: {ex.Message}");
+                        throw;
                     }
                 }
             }

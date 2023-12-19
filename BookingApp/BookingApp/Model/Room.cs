@@ -8,12 +8,12 @@ namespace BookingApp.Model
 {
     public class Room
     {
-        public int Id { get; set; }
-        public string Number { get; set; }
-        public string Type { get; set; }
-        public string CostPerNight { get; set; }
-        public string Availability { get; set; }
-        public List<string> PhotoLinks { get; set; }
+        public int Id { get; private set; }
+        public string Number { get; private set; }
+        public string Type { get; private set; }
+        public string CostPerNight { get; private set; }
+        public string Availability { get; private set; }
+        public List<string> PhotoLinks { get; private set; }
 
         public Room(int id, string number, string type, string costPerNight, string availability)
         {

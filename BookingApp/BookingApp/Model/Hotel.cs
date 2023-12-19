@@ -9,12 +9,12 @@ namespace BookingApp.Model
 {
     public class Hotel : IComparable<Hotel>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public int Rating { get; set; }
-        public string Description { get; set; }
-        public List<string> PhotoLinks { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Address { get; private set; }
+        public int Rating { get; private set; }
+        public string Description { get; private set; }
+        public List<string> PhotoLinks { get; private set; }
 
         public Hotel(int id, string name, string address, int rating, string description)
         {

@@ -8,11 +8,11 @@ namespace BookingApp.Model
 {
     public class Review
     {
-        public int Id { get; set; }
-        public string FullName { get; set; }
-        public string Text { get; set; }
-        public int Grade { get; set; }
-        public DateTime Date { get; set; }
+        public int Id { get; private set; }
+        public string FullName { get; private set; }
+        public string Text { get; private set; }
+        public int Grade { get; private set; }
+        public DateTime Date { get; private set; }
 
         public Review(int id, string fullName, string text, int grade, DateTime date) 
         { 

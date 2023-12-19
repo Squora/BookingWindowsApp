@@ -15,16 +15,18 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="TbSearch" Grid.Column="0" Style="{StaticResource placeHolder}" Tag="Введите название отеля..." Width="250" Height="25" TextChanged="TbSearch_TextChanged"/>
-                <ComboBox x:Name="StarFilter" Grid.Row="0" Grid.Column="1" Width="60" SelectionChanged="StarFilter_SelectionChanged">
-                    <CheckBox Content="1 Звезда" IsChecked="{Binding IsChecked1Star}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-                    <CheckBox Content="2 Звезды" IsChecked="{Binding IsChecked2Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-                    <CheckBox Content="3 Звезды" IsChecked="{Binding IsChecked3Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-                    <CheckBox Content="4 Звезды" IsChecked="{Binding IsChecked4Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-                    <CheckBox Content="5 Звезд" IsChecked="{Binding IsChecked5Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-                </ComboBox>
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="100, 0, 100, 0">
+                    <ComboBox x:Name="StarFilter" Width="60" SelectionChanged="StarFilter_SelectionChanged">
+                        <CheckBox Content="1 Звезда" IsChecked="{Binding IsChecked1Star}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                        <CheckBox Content="2 Звезды" IsChecked="{Binding IsChecked2Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                        <CheckBox Content="3 Звезды" IsChecked="{Binding IsChecked3Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                        <CheckBox Content="4 Звезды" IsChecked="{Binding IsChecked4Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                        <CheckBox Content="5 Звезд" IsChecked="{Binding IsChecked5Stars}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    </ComboBox>
+                </StackPanel>
                 <StackPanel Grid.Column="1" Margin="470, 0, 0, 0">
-                    <ToggleButton x:Name="BtnUserMenu" Width="25" Height="25" HorizontalAlignment="Right" Click="BtnUserMenu_Click">
-                        <Image Width="40" Height="40" />
+                    <ToggleButton x:Name="BtnUserMenu" Width="25" Height="25" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Click="BtnUserMenu_Click">
+                        <Image Source="/Images/UserProfileIcon.png" Width="25" Height="25" Stretch="Fill"/>
                     </ToggleButton>
 
                     <Popup x:Name="PopupUserMenu" PlacementTarget="{Binding ElementName=btnUserMenu}" Placement="Bottom" StaysOpen="False">
@@ -32,7 +34,7 @@
                             <StackPanel>
                                 <Button x:Name="BtnLogin" Content="Войти" Click="BtnLogin_Click"/>
                                 <Button x:Name="BtnRegister" Content="Зарегистрироваться" Click="BtnRegister_Click"/>
-                                
+
                                 <Button x:Name="BtnProfile" Content="Профиль" Click="BtnProfile_Click"/>
                                 <Button x:Name="BtnSettings" Content="Настройки" Click="BtnSettings_Click"/>
                                 <Button x:Name="BtnLogout" Content="Выйти" Click="BtnLogout_Click"/>
