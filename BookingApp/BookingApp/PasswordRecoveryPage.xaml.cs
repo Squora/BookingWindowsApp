@@ -80,9 +80,9 @@ namespace BookingApp
 
         private void BtnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            if (TbNewPassword.Text == TbRepeatNewPassword.Text && IsPasswordStrong(TbNewPassword.Text))
+            if (PbNewPassword.Password == PbRepeatNewPassword.Password)
             {
-                string hasedPassword = PasswordManager.HashPassword(TbNewPassword.Text);
+                string hasedPassword = PasswordManager.HashPassword(PbNewPassword.Password);
                 string query = "UPDATE user SET password = @NewPassword WHERE id = @UserId;";
                 MySqlParameter mspPassword = new MySqlParameter("@NewPassword", hasedPassword);
                 MySqlParameter mspUser = new MySqlParameter("@UserId", _userId);
@@ -101,31 +101,30 @@ namespace BookingApp
             }
         }
 
-        private bool IsPasswordStrong(string password)
+        private void CheckAndShowPasswordStrength(string password)
         {
             PasswordManager.Strength strength = PasswordManager.CheckStrength(password);
-            bool isStrong = false;
 
             switch (strength)
             {
                 case PasswordManager.Strength.Weak:
                     LblPasswordStrength.Content = "Слабый";
                     LblPasswordStrength.Foreground = Brushes.Red;
-                    isStrong = false;
                     break;
                 case PasswordManager.Strength.Medium:
                     LblPasswordStrength.Content = "Средний";
                     LblPasswordStrength.Foreground = Brushes.Orange;
-                    isStrong = false;
                     break;
                 case PasswordManager.Strength.Strong:
                     LblPasswordStrength.Content = "Сильный";
                     LblPasswordStrength.Foreground = Brushes.Green;
-                    isStrong = true;
                     break;
             }
+        }
 
-            return isStrong;
+        private void PbNewPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            CheckAndShowPasswordStrength(PbNewPassword.Password);
         }
     }
 }

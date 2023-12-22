@@ -83,31 +83,25 @@ namespace BookingApp
             }
         }
 
-        private bool IsPasswordStrong(string password)
+        private void CheckAndShowPasswordStrength(string password)
         {
             PasswordManager.Strength strength = PasswordManager.CheckStrength(password);
-            bool isStrong = false;
 
             switch (strength)
             {
                 case PasswordManager.Strength.Weak:
                     LblPasswordStrength.Content = "Слабый";
                     LblPasswordStrength.Foreground = Brushes.Red;
-                    isStrong = false;
                     break;
                 case PasswordManager.Strength.Medium:
                     LblPasswordStrength.Content = "Средний";
                     LblPasswordStrength.Foreground = Brushes.Orange;
-                    isStrong = false;
                     break;
                 case PasswordManager.Strength.Strong:
                     LblPasswordStrength.Content = "Сильный";
                     LblPasswordStrength.Foreground = Brushes.Green;
-                    isStrong = true;
                     break;
             }
-
-            return isStrong;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -201,7 +195,7 @@ namespace BookingApp
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            IsPasswordStrong(PasswordBox.Password);
+            CheckAndShowPasswordStrength(PasswordBox.Password);
         }
     }
 }
