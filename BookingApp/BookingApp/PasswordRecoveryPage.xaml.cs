@@ -26,6 +26,8 @@ namespace BookingApp
     {
         private int _userId;
 
+        private EmailVerificationCode _emailVerificationCode;
+
         public PasswordRecoveryPage()
         {
             InitializeComponent();
@@ -40,37 +42,21 @@ namespace BookingApp
             _userId = GetUserByEmail(userLogin);
             if (_userId > 0)
             {
-                string _code = GenerateRecoveryCode();
-                string query = "INSERT INTO password_reset_codes(user_id, code) VALUES(@UserId, @Code)";
-                MySqlParameter mspUser = new MySqlParameter("@UserId", _userId);
-                MySqlParameter mspCode = new MySqlParameter("@Code", _code);
-                DataBaseManager.ExecuteNonQuery(query, mspUser, mspCode);
                 SpRecover.Visibility = Visibility.Collapsed;
                 SpCodeEnter.Visibility = Visibility.Visible;
-                SendRecoveryEmail(userLogin, _code);
+                _emailVerificationCode = new EmailVerificationCode(userLogin);
+                _emailVerificationCode.GenerateCode();
+                _emailVerificationCode.AddToDatabase();
+                _emailVerificationCode.DeleteByTime();
+                string head = "Верификационный код";
+                string body = $"Ваш код для верификации: {_emailVerificationCode.Code}";
+                EmailSender.Send(userLogin, head, body);
                 MessageBox.Show($"Инструкции по восстановлению пароля отправлены на {userLogin}");
             }
             else
             {
                 MessageBox.Show("Пользователя с такой почтой не существует");
             }
-        }
-
-        public static string GenerateRecoveryCode()
-        {
-            int length = 4;
-            const string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-            Random random = new Random();
-            StringBuilder code = new StringBuilder();
-
-            for (int i = 0; i < length; i++)
-            {
-                int index = random.Next(validChars.Length);
-                code.Append(validChars[index]);
-            }
-
-            return code.ToString();
         }
 
         public int GetUserByEmail(string email)
@@ -82,49 +68,23 @@ namespace BookingApp
             return (dt.Rows.Count > 0) ? Convert.ToInt32(dt.Rows[0]["id"]) : -1;
         }
 
-        private void SendRecoveryEmail(string toEmail, string code)
-        {
-            string smtpServer = "smtp.yandex.ru";
-            int smtpPort = 587;
-            string senderEmail = "t.testeron@yandex.ru";
-            string senderPassword = "kncszmpjfqlhlert";
-
-            using (SmtpClient client = new SmtpClient(smtpServer, smtpPort))
-            {
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(senderEmail, senderPassword);
-                client.EnableSsl = true;
-
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress(senderEmail);
-                mail.To.Add(toEmail);
-                mail.Subject = code;
-                //mail.Body = body;
-
-                client.Send(mail);
-            }
-        }
-
         private void TbCode_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string query = "SELECT code FROM password_reset_codes WHERE user_id = @UserId";
-            MySqlParameter mspUser = new MySqlParameter("@UserId", _userId);
-            DataTable dt = DataBaseManager.ExecuteQuery(query, mspUser);
-            if (TbCode.Text == dt.Rows[0]["code"].ToString())
+            if(_emailVerificationCode.VerifyCode(TbCode.Text))
             {
+                _emailVerificationCode.RemoveFromDatabase();
                 SpCodeEnter.Visibility = Visibility.Collapsed;
                 SpChangePassword.Visibility = Visibility.Visible;
-                string deleteQuery = $"DELETE FROM password_reset_codes WHERE user_id = @UserId";
-                DataBaseManager.ExecuteQuery(deleteQuery, mspUser);
             }
         }
 
         private void BtnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            if (TbNewPassword.Text == TbRepeatNewPassword.Text)
+            if (TbNewPassword.Text == TbRepeatNewPassword.Text && IsPasswordStrong(TbNewPassword.Text))
             {
+                string hasedPassword = PasswordManager.HashPassword(TbNewPassword.Text);
                 string query = "UPDATE user SET password = @NewPassword WHERE id = @UserId;";
-                MySqlParameter mspPassword = new MySqlParameter("@NewPassword", TbNewPassword.Text);
+                MySqlParameter mspPassword = new MySqlParameter("@NewPassword", hasedPassword);
                 MySqlParameter mspUser = new MySqlParameter("@UserId", _userId);
                 int rowAffected = DataBaseManager.ExecuteNonQuery(query, mspPassword, mspUser);
 
@@ -139,6 +99,33 @@ namespace BookingApp
             {
                 MessageBox.Show("Пароли не совпадают.");
             }
+        }
+
+        private bool IsPasswordStrong(string password)
+        {
+            PasswordManager.Strength strength = PasswordManager.CheckStrength(password);
+            bool isStrong = false;
+
+            switch (strength)
+            {
+                case PasswordManager.Strength.Weak:
+                    LblPasswordStrength.Content = "Слабый";
+                    LblPasswordStrength.Foreground = Brushes.Red;
+                    isStrong = false;
+                    break;
+                case PasswordManager.Strength.Medium:
+                    LblPasswordStrength.Content = "Средний";
+                    LblPasswordStrength.Foreground = Brushes.Orange;
+                    isStrong = false;
+                    break;
+                case PasswordManager.Strength.Strong:
+                    LblPasswordStrength.Content = "Сильный";
+                    LblPasswordStrength.Foreground = Brushes.Green;
+                    isStrong = true;
+                    break;
+            }
+
+            return isStrong;
         }
     }
 }

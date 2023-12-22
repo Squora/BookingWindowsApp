@@ -25,7 +25,7 @@ namespace BookingApp
 
         private void BtnBook_Click(object sender, RoutedEventArgs e)
         {
-            if (UserManager.IsLogined)
+            if (UserManager.IsLoggedIn)
             {
                 if (IsDatesCorrect())
                 {

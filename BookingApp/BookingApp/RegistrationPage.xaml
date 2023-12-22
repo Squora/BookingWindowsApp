@@ -24,25 +24,27 @@
                     <TextBlock Text="Регистрация" FontSize="24" FontWeight="Bold" Margin="10"/>
 
                     <Label Content="Имя:" Margin="5"/>
-                    <TextBox x:Name="TbFirstName" Margin="5, 0, 500, 0"/>
+                    <TextBox x:Name="TbFirstName" Margin="5, 0, 500, 0" PreviewTextInput="TbFirstName_PreviewTextInput"/>
 
                     <Label Content="Фамилия:" Margin="5"/>
-                    <TextBox x:Name="TbLastName" Margin="5, 0, 500, 0"/>
+                    <TextBox x:Name="TbLastName" Margin="5, 0, 500, 0" PreviewTextInput="TbLastName_PreviewTextInput"/>
 
                     <Label Content="Отчество:" Margin="5"/>
-                    <TextBox x:Name="TbMiddleName" Margin="5, 0, 500, 0"/>
+                    <TextBox x:Name="TbMiddleName" Margin="5, 0, 500, 0" PreviewTextInput="TbMiddleName_PreviewTextInput"/>
 
                     <Label Content="Паспортные данные:" Margin="5"/>
-                    <TextBox x:Name="TbPassportDetails" MaxLength="10" Margin="5, 0, 500, 0"/>
+                    <TextBox x:Name="TbPassportDetails" MaxLength="11" Margin="5, 0, 500, 0" PreviewTextInput="TbPassportDetails_PreviewTextInput"/>
 
                     <Label Content="Телефон:" Margin="5"/>
-                    <TextBox x:Name="TbPhoneNumber" Margin="5, 0, 500, 0"/>
+                    <TextBox x:Name="TbPhoneNumber" Margin="5, 0, 500, 0" PreviewTextInput="TbPhoneNumber_PreviewTextInput"/>
 
                     <Label Content="Почта:" Margin="5"/>
-                    <TextBox x:Name="TbEmail" Margin="5, 0, 500, 0"/>
+                    <TextBox x:Name="TbEmail" Margin="5, 0, 500, 0" PreviewTextInput="TbEmail_PreviewTextInput" LostFocus="TbEmail_LostFocus"/>
+                    <Label x:Name="LblCheckCode" Content="Проверочный код:" Margin="5" Visibility="Collapsed"/>
+                    <TextBox x:Name="TbCheckCode" Margin="5, 0, 500, 0" Visibility="Collapsed"/>
 
                     <Label Content="Пароль:" Margin="5"/>
-                    <PasswordBox x:Name="PasswordBox" Margin="5, 0, 500, 0"/>
+                    <PasswordBox x:Name="PasswordBox" Margin="5, 0, 500, 0" PasswordChanged="PasswordBox_PasswordChanged"/>
                     <Label x:Name="LblPasswordStrength" Margin="5"/>
 
                     <Button Content="Зарегистрироваться" Click="BtnRegister_Click" Margin="10" Width="200" HorizontalAlignment="Center"/>

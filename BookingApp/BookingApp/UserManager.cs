@@ -10,7 +10,8 @@ namespace BookingApp
     public static class UserManager
     {
         private static User? _user;
-        public static bool IsLogined { get { return _user is not null; } }
+
+        public static bool IsLoggedIn => _user is not null;
 
         public static User? GetUser()
         {

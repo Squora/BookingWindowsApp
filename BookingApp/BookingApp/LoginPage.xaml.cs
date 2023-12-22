@@ -30,7 +30,7 @@ namespace BookingApp
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             string login = LoginTextBox.Text;
-            string password = PasswordBox.Password;
+            string password = PasswordManager.HashPassword(PasswordBox.Password);
 
             string query = "SELECT * FROM user WHERE (phone_number = @Login OR email = @Login) AND password = @Password;";
             MySqlParameter mspLogin = new MySqlParameter("@Login", login);

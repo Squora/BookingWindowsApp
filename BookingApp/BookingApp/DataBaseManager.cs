@@ -11,7 +11,7 @@ namespace BookingApp
 {
     public static class DataBaseManager
     {
-        private const string _connection = "SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;";
+        private static readonly string _connection = "SERVER=localhost;DATABASE=booking_app;UID=root;PASSWORD=root;";
 
         public static DataTable ExecuteQuery(string query)
         {

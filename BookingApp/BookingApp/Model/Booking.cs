@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public class Booking
+    public struct Booking
     {
         public int Id { get; private set; }
         public string HotelName { get; private set; }

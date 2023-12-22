@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public class Room
+    public struct Room
     {
         public int Id { get; private set; }
         public string Number { get; private set; }
         public string Type { get; private set; }
         public string CostPerNight { get; private set; }
         public string Availability { get; private set; }
-        public List<string> PhotoLinks { get; private set; }
 
         public Room(int id, string number, string type, string costPerNight, string availability)
         {

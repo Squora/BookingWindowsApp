@@ -27,72 +27,6 @@ namespace BookingApp
     {
         private List<Hotel> _hotels = new List<Hotel>();
 
-
-        private bool _isChecked1Star;
-        public bool IsChecked1Star
-        {
-            get { return _isChecked1Star; }
-            set
-            {
-                if (_isChecked1Star != value)
-                {
-                    _isChecked1Star = value;
-                }
-            }
-        }
-
-        private bool _isChecked2Stars;
-        public bool IsChecked2Stars
-        {
-            get { return _isChecked2Stars; }
-            set
-            {
-                if (_isChecked2Stars != value)
-                {
-                    _isChecked2Stars = value;
-                }
-            }
-        }
-
-        private bool _isChecked3Stars;
-        public bool IsChecked3Stars
-        {
-            get { return _isChecked3Stars; }
-            set
-            {
-                if (_isChecked3Stars != value)
-                {
-                    _isChecked3Stars = value;
-                }
-            }
-        }
-
-        private bool _isChecked4Stars;
-        public bool IsChecked4Stars
-        {
-            get { return _isChecked4Stars; }
-            set
-            {
-                if (_isChecked4Stars != value)
-                {
-                    _isChecked4Stars = value;
-                }
-            }
-        }
-
-        private bool _isChecked5Stars;
-        public bool IsChecked5Stars
-        {
-            get { return _isChecked5Stars; }
-            set
-            {
-                if (_isChecked5Stars != value)
-                {
-                    _isChecked5Stars = value;
-                }
-            }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -121,17 +55,15 @@ namespace BookingApp
 
         private void ApplyFilters()
         {
+            List<int> selectedStars = GetSelectedStars();
             List<Hotel> filteredHotels;
-            if (!IsChecked1Star && !IsChecked2Stars && !IsChecked3Stars && !IsChecked4Stars && !IsChecked5Stars)
+            if (selectedStars.Count == 0)
             {
                 filteredHotels = new List<Hotel>(_hotels);
             }
             else
             {
-                filteredHotels = _hotels
-                    .Where(hotel => (IsChecked1Star && hotel.Rating == 1) || (IsChecked2Stars && hotel.Rating == 2)
-                    || (IsChecked3Stars && hotel.Rating == 3) || (IsChecked4Stars && hotel.Rating == 4) || (IsChecked5Stars && hotel.Rating == 5))
-                    .ToList();
+                filteredHotels = _hotels.Where(h => selectedStars.Contains(h.Rating)).ToList();
             }
 
             HotelListBox.ItemsSource = filteredHotels;
@@ -177,7 +109,7 @@ namespace BookingApp
 
         private void UpdateUserMenuVisibility()
         {
-            if (!UserManager.IsLogined)
+            if (!UserManager.IsLoggedIn)
             {
                 BtnLogin.Visibility = Visibility.Visible;
                 BtnRegister.Visibility = Visibility.Visible;
@@ -239,6 +171,24 @@ namespace BookingApp
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
             UpdateUserMenuVisibility();
+        }
+
+        private List<int> GetSelectedStars()
+        {
+            List<int> selectedStars = new List<int>();
+
+            if (Cb1Star.IsChecked == true)
+                selectedStars.Add(1);
+            if (Cb2Stars.IsChecked == true)
+                selectedStars.Add(2);
+            if (Cb3Stars.IsChecked == true)
+                selectedStars.Add(3);
+            if (Cb4Stars.IsChecked == true)
+                selectedStars.Add(4);
+            if (Cb5Stars.IsChecked == true)
+                selectedStars.Add(5);
+
+            return selectedStars;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
