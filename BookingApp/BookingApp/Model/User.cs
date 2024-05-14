@@ -16,9 +16,10 @@ namespace BookingApp.Model
         public string PhoneNumber { get; private set; }
         public string PassportDetails { get; private set; }
         public string Password { get; private set; }
+        public bool IsAdmin { get; private set; }  
 
-        public User(int id, string firstName, string lastName, string middleName, string email, string phoneNumber, 
-            string passportDetails, string password)
+        public User(int id, string firstName, string lastName, string middleName, string email, string phoneNumber,
+            string passportDetails, string password, bool isAdmin)
         {
             Id = id;
             FirstName = firstName;
@@ -28,6 +29,7 @@ namespace BookingApp.Model
             PhoneNumber = phoneNumber;
             PassportDetails = passportDetails;
             Password = password;
+            IsAdmin = isAdmin;
         }
     }
 }

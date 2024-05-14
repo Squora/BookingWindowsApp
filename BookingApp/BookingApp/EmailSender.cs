@@ -21,10 +21,9 @@ namespace BookingApp
 
         public static void Send(string recipientEmail, string head, string body)
         {
-            EmailVerificationCode emailVerificationCode = new EmailVerificationCode(recipientEmail);
-            emailVerificationCode.GenerateCode();
-            emailVerificationCode.AddToDatabase();
-            emailVerificationCode.DeleteByTime();
+            VerificationCode.GenerateCode();
+            VerificationCode.AddToDatabase();
+            VerificationCode.DeleteByTime();
             try
             {
                 using (SmtpClient client = new SmtpClient(_smtpServer, _smtpPort))

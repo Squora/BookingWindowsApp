@@ -32,12 +32,12 @@ namespace BookingApp
             _user = UserManager.GetUser();
             LoadBookings();
 
-            tbFirstName.Text += _user.FirstName;
-            tbLastName.Text += _user.LastName;
-            tbMiddleName.Text += _user.MiddleName;
-            tbPhoneNumber.Text += _user.PhoneNumber;
-            tbEmail.Text += _user.Email;
-            tbPassportDetails.Text += _user.PassportDetails;
+            TbFirstName.Text += _user.FirstName;
+            TbLastName.Text += _user.LastName;
+            TbMiddleName.Text += _user.MiddleName;
+            TbPhoneNumber.Text += _user.PhoneNumber;
+            TbEmail.Text += _user.Email;
+            TbPassportDetails.Text += _user.PassportDetails;
 
             LbBookings.ItemsSource = _bookings;
         }

@@ -14,9 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Org.BouncyCastle.Utilities.Net;
 using System.Xml.Linq;
-using BookingApp.Model;
 using MySql.Data.MySqlClient;
 using System.Data;
 
@@ -25,8 +23,6 @@ namespace BookingApp
     public partial class PasswordRecoveryPage : Page
     {
         private int _userId;
-
-        private EmailVerificationCode _emailVerificationCode;
 
         public PasswordRecoveryPage()
         {
@@ -44,12 +40,11 @@ namespace BookingApp
             {
                 SpRecover.Visibility = Visibility.Collapsed;
                 SpCodeEnter.Visibility = Visibility.Visible;
-                _emailVerificationCode = new EmailVerificationCode(userLogin);
-                _emailVerificationCode.GenerateCode();
-                _emailVerificationCode.AddToDatabase();
-                _emailVerificationCode.DeleteByTime();
+                VerificationCode.GenerateCode();
+                VerificationCode.AddToDatabase();
+                VerificationCode.DeleteByTime();
                 string head = "Верификационный код";
-                string body = $"Ваш код для верификации: {_emailVerificationCode.Code}";
+                string body = $"Ваш код для верификации: {VerificationCode.Code}";
                 EmailSender.Send(userLogin, head, body);
                 MessageBox.Show($"Инструкции по восстановлению пароля отправлены на {userLogin}");
             }
@@ -70,9 +65,9 @@ namespace BookingApp
 
         private void TbCode_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(_emailVerificationCode.VerifyCode(TbCode.Text))
+            if(VerificationCode.VerifyCode(TbCode.Text))
             {
-                _emailVerificationCode.RemoveFromDatabase();
+                VerificationCode.RemoveFromDatabase();
                 SpCodeEnter.Visibility = Visibility.Collapsed;
                 SpChangePassword.Visibility = Visibility.Visible;
             }

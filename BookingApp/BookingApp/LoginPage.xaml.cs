@@ -47,8 +47,10 @@ namespace BookingApp
                 string phoneNumber = dt.Rows[0]["phone_number"].ToString();
                 string email = dt.Rows[0]["email"].ToString();
                 string userPassword = dt.Rows[0]["password"].ToString();
+                bool isAdmin = Convert.ToBoolean(dt.Rows[0]["is_admin"]);
 
-                User user = new User(id, firstName, lastName, middleName, passportDetails, phoneNumber, email, userPassword);
+                User user = new User(id, firstName, lastName, middleName, passportDetails, phoneNumber, email,
+                    userPassword, isAdmin);
                 UserManager.SetUser(user);
 
                 MainWindow mainWindow = new MainWindow();
@@ -63,16 +65,16 @@ namespace BookingApp
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            spEnter.Visibility = Visibility.Collapsed;
-            spButtons.Visibility = Visibility.Collapsed;
+            SpEnter.Visibility = Visibility.Collapsed;
+            SpButtons.Visibility = Visibility.Collapsed;
 
             NavigationService.Navigate(new Uri("RegistrationPage.xaml", UriKind.Relative));
         }
 
         private void BtnForgotPassword_Click(object sender, RoutedEventArgs e)
         {
-            spEnter.Visibility = Visibility.Collapsed;
-            spButtons.Visibility = Visibility.Collapsed;
+            SpEnter.Visibility = Visibility.Collapsed;
+            SpButtons.Visibility = Visibility.Collapsed;
 
             NavigationService.Navigate(new Uri("PasswordRecoveryPage.xaml", UriKind.Relative));
         }

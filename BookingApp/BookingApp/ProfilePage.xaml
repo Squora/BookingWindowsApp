@@ -34,22 +34,22 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="Имя: " FontWeight="Bold"/>
-                <TextBlock x:Name="tbFirstName" Grid.Row="0" Margin="40, 0, 0, 0"/>
+                <TextBlock x:Name="TbFirstName" Grid.Row="0" Margin="40, 0, 0, 0"/>
                 
                 <TextBlock Grid.Row="1" Text="Фамилия: " FontWeight="Bold"/>
-                <TextBlock x:Name="tbLastName" Grid.Row="1" Margin="70, 0, 0, 0"/>
+                <TextBlock x:Name="TbLastName" Grid.Row="1" Margin="70, 0, 0, 0"/>
 
                 <TextBlock Grid.Row="2" Text="Отчество: " FontWeight="Bold"/>
-                <TextBlock x:Name="tbMiddleName" Grid.Row="2" Margin="70, 0, 0, 0"/>
+                <TextBlock x:Name="TbMiddleName" Grid.Row="2" Margin="70, 0, 0, 0"/>
 
                 <TextBlock Grid.Row="3" Text="Телефон: " FontWeight="Bold"/>
-                <TextBlock x:Name="tbPhoneNumber" Grid.Row="3" Margin="65, 0, 0, 0"/>
+                <TextBlock x:Name="TbPhoneNumber" Grid.Row="3" Margin="65, 0, 0, 0"/>
 
                 <TextBlock Grid.Row="4" Text="Почта: " FontWeight="Bold"/>
-                <TextBlock x:Name="tbEmail" Grid.Row="4" Margin="50, 0, 0, 0"/>
+                <TextBlock x:Name="TbEmail" Grid.Row="4" Margin="50, 0, 0, 0"/>
                 
                 <TextBlock Grid.Row="5" Text="Паспортные данные: " FontWeight="Bold"/>
-                <TextBlock x:Name="tbPassportDetails" Grid.Row="5" Margin="135, 0, 0, 0"/>
+                <TextBlock x:Name="TbPassportDetails" Grid.Row="5" Margin="135, 0, 0, 0"/>
             </Grid>
         </StackPanel>
 

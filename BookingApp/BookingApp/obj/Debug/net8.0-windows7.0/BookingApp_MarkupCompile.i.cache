@@ -1,0 +1,20 @@
+﻿BookingApp
+1.0.0.0
+
+winexe
+C#
+.cs
+D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\obj\Debug\net8.0-windows7.0\
+BookingApp
+none
+false
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+D:\GitHub Projects\BookingWindowsApp\BookingApp\BookingApp\App.xaml
+7-881988039
+
+21-631456913
+198-688555687
+HotelDetailsPage.xaml;LoginPage.xaml;MainWindow.xaml;PasswordRecoveryPage.xaml;ProfilePage.xaml;RegistrationPage.xaml;RoomDetailsPage.xaml;
+
+True
+

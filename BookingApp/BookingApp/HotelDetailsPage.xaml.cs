@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Data;
 using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Markup;
 
 namespace BookingApp
 {
@@ -60,7 +61,7 @@ namespace BookingApp
             }
         }
 
-        private T FindChild<T>(DependencyObject parent) where T : DependencyObject
+        private T? FindChild<T>(DependencyObject parent) where T : DependencyObject
         {
             if (parent == null) return null;
 
@@ -88,22 +89,19 @@ namespace BookingApp
         {
             string query = "SELECT " +
                     "room.id, " +
-                    "room_to_hotel.room_id, " +
-                    "room_type.name AS Type, " +
+                    "room_type.name AS type, " +
                     "room.number, " +
                     "room.cost_per_night, " +
-                    "availability.name AS Availability, " +
+                    "availability.name AS availability, " +
                     "room.photos " +
                     "FROM " +
-                    "room_to_hotel " +
-                    "JOIN " +
-                    "room ON room_to_hotel.room_id = room.id " +
+                    "room " +
                     "JOIN " +
                     "room_type ON room.type = room_type.id " +
                     "JOIN " +
                     "availability ON room.availability = availability.id " +
                     "WHERE " +
-                    "room_to_hotel.hotel_id = @HotelId;";
+                    "room.hotel_id = @HotelId;";
             MySqlParameter mspHotel = new MySqlParameter("@HotelId", hotelId);
             DataTable dt = DataBaseManager.ExecuteQuery(query, mspHotel);
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -132,11 +130,9 @@ namespace BookingApp
                 "FROM " +
                 "review " +
                 "JOIN " +
-                "review_to_hotel ON review.id = review_to_hotel.review_id " +
-                "JOIN " +
                 "user ON review.user_id = user.id " +
                 "WHERE " +
-                "review_to_hotel.hotel_id = @hotelId;";
+                "review.hotel_id = @hotelId;";
             MySqlParameter mspHotel = new MySqlParameter("@HotelId", hotelId);
             DataTable dt = DataBaseManager.ExecuteQuery(query, mspHotel);
             for (int i = 0; i < dt.Rows.Count; i++)

@@ -44,7 +44,7 @@
             </Grid>
         </StackPanel>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        <ListBox x:Name="HotelListBox" ItemsSource="{Binding Hotels}" SelectionChanged="HotelListBox_SelectionChanged"
+        <ListBox x:Name="LbHotels" ItemsSource="{Binding Hotels}" SelectionChanged="LbHotels_SelectionChanged"
                  Margin="0, 50, 0, 0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False"
                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <ListBox.Resources>

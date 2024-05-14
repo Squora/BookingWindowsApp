@@ -20,7 +20,7 @@
                     BorderThickness="0" Click="BtnBack_Click"/>
             <Separator Background="Black"/>
         </StackPanel>
-        <StackPanel x:Name="spEnter" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
+        <StackPanel x:Name="SpEnter" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
             <TextBlock Text="Вход" FontSize="24" FontWeight="Bold" Margin="10"/>
             <Label Content="Логин (почта или телефон):" Margin="10"/>
             <TextBox x:Name="LoginTextBox" Margin="10"/>
@@ -28,7 +28,7 @@
             <PasswordBox x:Name="PasswordBox" Margin="10"/>
         </StackPanel>
 
-        <StackPanel x:Name="spButtons" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel x:Name="SpButtons" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

@@ -66,7 +66,7 @@ namespace BookingApp
                 filteredHotels = _hotels.Where(h => selectedStars.Contains(h.Rating)).ToList();
             }
 
-            HotelListBox.ItemsSource = filteredHotels;
+            LbHotels.ItemsSource = filteredHotels;
         }
 
         private void SortByRating()
@@ -75,7 +75,7 @@ namespace BookingApp
             sortedHotels.Sort();
             sortedHotels.Reverse();
 
-            HotelListBox.ItemsSource = sortedHotels;
+            LbHotels.ItemsSource = sortedHotels;
         }
 
         private void StarFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,11 +83,11 @@ namespace BookingApp
             ApplyFilters();
         }
 
-        private void HotelListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LbHotels_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Hotel selectedHotel = (Hotel)HotelListBox.SelectedItem;
+            Hotel selectedHotel = (Hotel)LbHotels.SelectedItem;
 
-            HotelListBox.Visibility = Visibility.Collapsed;
+            LbHotels.Visibility = Visibility.Collapsed;
             SpFilters.Visibility = Visibility.Collapsed;
             TbSearch.Visibility = Visibility.Collapsed;
             MainFrame.NavigationService.Navigate(new HotelDetailsPage(selectedHotel));
@@ -99,7 +99,7 @@ namespace BookingApp
             List<Hotel> filteredHotels = _hotels
                 .Where(hotel => hotel.Name.ToLower().Contains(searchText) || hotel.Address.ToLower().Contains(searchText)).ToList();
 
-            HotelListBox.ItemsSource = filteredHotels;
+            LbHotels.ItemsSource = filteredHotels;
         }
 
         private void BtnUserMenu_Click(object sender, RoutedEventArgs e)
@@ -132,7 +132,7 @@ namespace BookingApp
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             SpMain.Visibility = Visibility.Collapsed;
-            HotelListBox.Visibility = Visibility.Collapsed;
+            LbHotels.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
             MainFrame.NavigationService.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
@@ -141,7 +141,7 @@ namespace BookingApp
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
             SpMain.Visibility = Visibility.Collapsed;
-            HotelListBox.Visibility = Visibility.Collapsed;
+            LbHotels.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
             MainFrame.NavigationService.Navigate(new Uri("RegistrationPage.xaml", UriKind.Relative));
@@ -150,7 +150,7 @@ namespace BookingApp
         private void BtnProfile_Click(object sender, RoutedEventArgs e)
         {
             SpMain.Visibility = Visibility.Collapsed;
-            HotelListBox.Visibility = Visibility.Collapsed;
+            LbHotels.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
             MainFrame.NavigationService.Navigate(new Uri("ProfilePage.xaml", UriKind.Relative));
@@ -159,7 +159,7 @@ namespace BookingApp
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
             SpMain.Visibility = Visibility.Collapsed;
-            HotelListBox.Visibility = Visibility.Collapsed;
+            LbHotels.Visibility = Visibility.Collapsed;
             PopupUserMenu.IsOpen = !PopupUserMenu.IsOpen;
 
             MainFrame.NavigationService.Navigate(new Uri("SettingsPage.xaml", UriKind.Relative));

@@ -5,20 +5,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace BookingApp
 {
-    public class EmailVerificationCode : BaseVerificationCode<string>
+    public class VerificationCode 
     {
-        public override string Login { get; set; }
-        public override string? Code { get; set; }
+        public static string? Login { get; set; }
+        public static string? Code { get; set; }
 
-        public EmailVerificationCode(string email)
-        {
-            Login = email;
-        }
-
-        public override void GenerateCode()
+        public static void GenerateCode()
         {
             int length = 4;
             const string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -35,7 +31,15 @@ namespace BookingApp
             Code = code.ToString();
         }
 
-        public override bool VerifyCode(string enteredCode)
+        public static void DeleteByTime()
+        {
+            Timer timer = new Timer(1 * 60 * 1000);
+            timer.Elapsed += (sender, e) => RemoveFromDatabase();
+            timer.AutoReset = false;
+            timer.Start();
+        }
+
+        public static bool VerifyCode(string enteredCode)
         {
             string query = "SELECT code FROM verification_codes WHERE email = @Email";
             MySqlParameter mspEmail = new MySqlParameter("@Email", Login);
@@ -47,7 +51,7 @@ namespace BookingApp
             return false;
         }
 
-        public override void AddToDatabase()
+        public static void AddToDatabase()
         {
             string query = "INSERT INTO verification_codes(email, code) VALUES(@Email, @Code)";
             MySqlParameter mspEmail = new MySqlParameter("@Email", Login);
@@ -55,7 +59,7 @@ namespace BookingApp
             DataBaseManager.ExecuteNonQuery(query, mspEmail, mspCode);
         }
 
-        public override void RemoveFromDatabase()
+        public static void RemoveFromDatabase()
         {
             string deleteQuery = $"DELETE FROM verification_codes WHERE email = @Email";
             MySqlParameter mspEmail = new MySqlParameter("@Email", Login);

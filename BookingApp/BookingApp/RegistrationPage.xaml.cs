@@ -23,8 +23,6 @@ namespace BookingApp
 {
     public partial class RegistrationPage : Page
     {
-        private EmailVerificationCode _emailVerificationCode;
-
         public RegistrationPage()
         {
             InitializeComponent();
@@ -51,9 +49,9 @@ namespace BookingApp
             MySqlParameter mspEmail = new MySqlParameter("@Email", email);
             MySqlParameter mspPassword = new MySqlParameter("@Password", hasedPassword);
 
-            if (!IsUserExist(phone, passportDetails) && _emailVerificationCode.VerifyCode(TbCheckCode.Text))
+            if (!IsUserExist(phone, passportDetails) && VerificationCode.VerifyCode(TbCheckCode.Text))
             {
-                _emailVerificationCode.RemoveFromDatabase();
+                VerificationCode.RemoveFromDatabase();
                 LblCheckCode.Visibility = Visibility.Visible;
                 TbCheckCode.Visibility = Visibility.Visible;
                 DataBaseManager.ExecuteNonQuery(query, mspFirstName, mspLastName, mspMiddleName, mspPassportDetails, mspPhone, mspEmail, mspPassword);
@@ -114,6 +112,17 @@ namespace BookingApp
         private void TbFirstName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !ContainsOnlyLetters(e.Text);
+            string text;
+            if (e.Text.Length < 1)
+            {
+                text = e.Text.Trim().ToUpper();
+            }
+            else
+            {
+                text = e.Text.Trim().ToLower();
+            }
+
+            e.Source = text;
         }
 
         private void TbLastName_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -181,12 +190,11 @@ namespace BookingApp
         {
             if (IsEmailValid(TbEmail.Text))
             {
-                _emailVerificationCode = new EmailVerificationCode(TbEmail.Text);
-                _emailVerificationCode.GenerateCode();
-                _emailVerificationCode.AddToDatabase();
-                _emailVerificationCode.DeleteByTime();
+                VerificationCode.GenerateCode();
+                VerificationCode.AddToDatabase();
+                VerificationCode.DeleteByTime();
                 string head = "Верификационный код";
-                string body = $"Ваш код для верификации: {_emailVerificationCode.Code}";
+                string body = $"Ваш код для верификации: {VerificationCode.Code}";
                 EmailSender.Send(TbEmail.Text, head, body);
                 LblCheckCode.Visibility = Visibility.Visible;
                 TbCheckCode.Visibility = Visibility.Visible;
