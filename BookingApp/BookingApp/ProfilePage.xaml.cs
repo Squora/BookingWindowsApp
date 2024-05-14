@@ -51,20 +51,13 @@ namespace BookingApp
                 "booking.start_stay_date, " +
                 "booking.end_stay_date, " +
                 "booking_status.name AS booking_status, " +
-                "room_to_hotel.hotel_id, " +
+                "room.hotel_id, " +
                 "booking.status " +
-                "FROM " +
-                "booking " +
-                "JOIN " +
-                "room_to_hotel ON booking.room_id = room_to_hotel.room_id " +
-                "JOIN " +
-                "hotel ON room_to_hotel.hotel_id = hotel.id " +
-                "JOIN " +
-                "room ON booking.room_id = room.id " +
-                "JOIN " +
-                "booking_status ON booking.status = booking_status.id " +
-                "WHERE " +
-                "booking.user_id = @UserId;";
+                "FROM booking " +
+                "JOIN room ON booking.room_id = room.id " +
+                "JOIN hotel ON room.hotel_id = hotel.id " +
+                "JOIN booking_status ON booking.status = booking_status.id " +
+                "WHERE booking.user_id = @UserId;";
             MySqlParameter mspUser = new MySqlParameter("@UserId", _user.Id);
             DataTable dt = DataBaseManager.ExecuteQuery(query, mspUser);
 

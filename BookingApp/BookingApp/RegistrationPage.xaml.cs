@@ -112,17 +112,27 @@ namespace BookingApp
         private void TbFirstName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !ContainsOnlyLetters(e.Text);
-            string text;
-            if (e.Text.Length < 1)
-            {
-                text = e.Text.Trim().ToUpper();
-            }
-            else
-            {
-                text = e.Text.Trim().ToLower();
-            }
 
-            e.Source = text;
+            var textBox = sender as TextBox;
+            if (textBox != null && !e.Handled)
+            {
+                int caretIndex = textBox.CaretIndex;
+                string newText = textBox.Text.Substring(0, caretIndex) + e.Text + textBox.Text.Substring(caretIndex);
+
+                if (newText.Length == 1)
+                {
+                    newText = newText.ToUpper();
+                }
+                else
+                {
+                    newText = newText.ToLower();
+                }
+
+                textBox.Text = newText;
+                textBox.CaretIndex = caretIndex + e.Text.Length;
+
+                e.Handled = true;
+            }
         }
 
         private void TbLastName_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -191,6 +201,7 @@ namespace BookingApp
             if (IsEmailValid(TbEmail.Text))
             {
                 VerificationCode.GenerateCode();
+                VerificationCode.Login = TbEmail.Text;
                 VerificationCode.AddToDatabase();
                 VerificationCode.DeleteByTime();
                 string head = "Верификационный код";
